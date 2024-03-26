@@ -1,0 +1,6 @@
+[submodule "PolyEngine/vendor/spdlog"]
+	path = PolyEngine/vendor/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "PolyEngine/vendor/GLFW"]
+	path = PolyEngine/vendor/GLFW
+	url = https://github.com/TheCherno/GLFW
