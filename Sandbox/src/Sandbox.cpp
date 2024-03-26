@@ -22,7 +22,7 @@ class Sandbox : public PolyEngine::Application
 public: 
 	Sandbox() 
 	{
-		PushLayer(new ExampleLayer());
+		PushOverlay(new PolyEngine::ImGuiLayer());
 	}
 
 	~Sandbox() 

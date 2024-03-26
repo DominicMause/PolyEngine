@@ -53,6 +53,8 @@
       <Filter>PolyEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\pepch.h" />
+    <ClInclude Include="src\PolyEngine\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGlRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
@@ -71,5 +73,7 @@
       <Filter>PolyEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\pepch.cpp" />
+    <ClCompile Include="src\PolyEngine\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>
