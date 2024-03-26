@@ -168,9 +168,11 @@
     <ClInclude Include="src\PolyEngine\Events\MouseEvent.h" />
     <ClInclude Include="src\PolyEngine\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\PolyEngine\Input.h" />
+    <ClInclude Include="src\PolyEngine\KeyCodes.h" />
     <ClInclude Include="src\PolyEngine\Layer.h" />
     <ClInclude Include="src\PolyEngine\LayerStack.h" />
     <ClInclude Include="src\PolyEngine\Log.h" />
+    <ClInclude Include="src\PolyEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\PolyEngine\Window.h" />
     <ClInclude Include="src\pepch.h" />
   </ItemGroup>

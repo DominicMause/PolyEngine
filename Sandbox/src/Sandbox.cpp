@@ -1,6 +1,8 @@
 #include <PolyEngine.h>
 
-class ExampleLayer : public PolyEngine::Layer
+using namespace PolyEngine;
+
+class ExampleLayer : public Layer
 {
 public:
 	ExampleLayer()
@@ -8,21 +10,22 @@ public:
 
 	void OnUpdate() override
 	{
-		PE_INFO("Layer ({0}): Update", GetName());
+		
 	}
 
 	void OnEvent(PolyEngine::Event& event)
 	{
-		PE_TRACE("{0}", event);
+		
 	}
 };
 
-class Sandbox : public PolyEngine::Application 
+class Sandbox : public Application 
 {
 public: 
 	Sandbox() 
 	{
-		PushOverlay(new PolyEngine::ImGuiLayer());
+		PushLayer(new ExampleLayer());
+		PushOverlay(new ImGuiLayer());
 	}
 
 	~Sandbox() 
