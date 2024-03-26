@@ -1,13 +1,21 @@
 #pragma once
 
 #ifdef PE_PLATFORM_WINDOWS
+#if PE_DYNAMIC_LINK
 	#ifdef PE_BUILD_DLL
 		#define POLY_API __declspec(dllexport)
 	#else
 		#define POLY_API __declspec(dllimport)
 	#endif
 #else
+	#define POLY_API
+#endif
+#else
 	#error PolyEngine only supports Windows!
+#endif
+
+#ifdef PE_DEBUG
+	#define PE_ENABLE_ASSERTS
 #endif
 
 #ifdef PE_ENABLE_ASSERTS

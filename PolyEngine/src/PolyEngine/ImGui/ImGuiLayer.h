@@ -15,17 +15,10 @@ namespace PolyEngine
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
-		virtual void OnUpdate() override;
-		virtual void OnEvent(Event& event) override;
-	private:
-		bool OnMouseButtonPressed(MouseButtonPressedEvent& event);
-		bool OnMouseButtonReleased(MouseButtonReleasedEvent& event);
-		bool OnMouseMoved(MouseMovedEvent& event);
-		bool OnMouseScrolled(MouseScrolledEvent& event);
-		bool OnKeyPressed(KeyPressedEvent& event);
-		bool OnKeyReleased(KeyReleasedEvent& event);
-		bool OnKeyTyped(KeyTypedEvent& event);
-		bool OnWindowResized(WindowResizeEvent& event);
+		virtual void OnImGuiRender() override;
+
+		void Begin();
+		void End();
 
 	private:
 		float m_Time = 0.0f;

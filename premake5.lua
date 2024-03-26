@@ -1,5 +1,6 @@
 workspace "PolyEngine"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -15,6 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "PolyEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "PolyEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "PolyEngine/vendor/imgui"
+IncludeDir["glm"] = "PolyEngine/vendor/glm"
 
 include "PolyEngine/vendor/GLFW"
 include "PolyEngine/vendor/Glad"
@@ -22,8 +24,10 @@ include "PolyEngine/vendor/imgui"
 
 project "PolyEngine"
 	location "PolyEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -34,7 +38,14 @@ project "PolyEngine"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs
@@ -43,7 +54,8 @@ project "PolyEngine"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links 
@@ -55,8 +67,6 @@ project "PolyEngine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -66,30 +76,27 @@ project "PolyEngine"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-		}
-
 	filter "configurations:Debug"
 		defines "PE_DEBUG"
-		buildoptions "/MDd"
-		symbols "On"
+		runtime "Debug"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "PE_RELEASE"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "PE_DIST"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -103,7 +110,9 @@ project "Sandbox"
 	includedirs
 	{
 		"PolyEngine/vendor/spdlog/include",
-		"PolyEngine/src"
+		"PolyEngine/src",
+		"PolyEngine/vendor",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -112,8 +121,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -123,15 +130,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "PE_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "PE_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "PE_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
