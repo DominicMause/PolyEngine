@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "PolyEngine/vendor/GLFW/include"
+IncludeDir["Glad"] = "PolyEngine/vendor/Glad/include"
 
 include "PolyEngine/vendor/GLFW"
+include "PolyEngine/vendor/Glad"
 
 project "PolyEngine"
 	location "PolyEngine"
@@ -37,14 +39,15 @@ project "PolyEngine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links 
 	{ 
 		"GLFW",
-		"opengl32.lib",
-        "dwmapi.lib"
+		"Glad",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -55,7 +58,8 @@ project "PolyEngine"
 		defines
 		{
 			"PE_PLATFORM_WINDOWS",
-			"PE_BUILD_DLL"
+			"PE_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -65,14 +69,17 @@ project "PolyEngine"
 
 	filter "configurations:Debug"
 		defines "PE_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "PE_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "PE_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -112,12 +119,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "PE_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "PE_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "PE_DIST"
+		buildoptions "/MD"
 		optimize "On"

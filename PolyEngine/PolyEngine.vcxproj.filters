@@ -40,6 +40,12 @@
     <ClInclude Include="src\PolyEngine\Events\MouseEvent.h">
       <Filter>PolyEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\PolyEngine\Layer.h">
+      <Filter>PolyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\LayerStack.h">
+      <Filter>PolyEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\PolyEngine\Log.h">
       <Filter>PolyEngine</Filter>
     </ClInclude>
@@ -53,6 +59,12 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\PolyEngine\Application.cpp">
+      <Filter>PolyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Layer.cpp">
+      <Filter>PolyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\LayerStack.cpp">
       <Filter>PolyEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\PolyEngine\Log.cpp">

@@ -3,6 +3,7 @@
 // For use by PolyEngine applications
 
 #include "PolyEngine/Application.h"
+#include "PolyEngine/Layer.h"
 #include "PolyEngine/Log.h"
 
 // ------------Entry Point----------------------
