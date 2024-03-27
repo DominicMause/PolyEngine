@@ -4,8 +4,12 @@
 #include "Window.h"
 #include "PolyEngine/LayerStack.h"
 #include "Events/Event.h"
+
 #include "PolyEngine/Events/ApplicationEvent.h"
+
 #include "PolyEngine/ImGui/ImGuiLayer.h"
+
+#include "PolyEngine/Renderer/Shader.h"
 
 namespace PolyEngine {
 
@@ -33,6 +37,7 @@ namespace PolyEngine {
 		LayerStack m_LayerStack;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 
 		static Application* s_Instance;
 	};

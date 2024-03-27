@@ -17,6 +17,11 @@ namespace PolyEngine
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		PE_CORE_ASSERT(status, "Failed to initialize Glad");
+
+		PE_CORE_INFO("OpenGL Renderer:");
+		PE_CORE_INFO("       Vendor:   {0}", (const char*)glGetString(GL_VENDOR));
+		PE_CORE_INFO("       Renderer: {0}", (const char*)glGetString(GL_RENDERER));
+		PE_CORE_INFO("       Version:  {0}", (const char*)glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers()
