@@ -16,6 +16,7 @@ namespace PolyEngine
 				return new OpenGLVertexBuffer(vertices, size);
 		}
 
+		PE_CORE_ASSERT(false, "Renderer not supported");
 		return nullptr;
 	}
 
@@ -29,6 +30,7 @@ namespace PolyEngine
 				return new OpenGLIndexBuffer(indices, size);
 		}
 
+		PE_CORE_ASSERT(false, "Renderer not supported");
 		return nullptr;
 	}
 }

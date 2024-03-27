@@ -16,6 +16,7 @@ namespace PolyEngine
 			return new OpenGLShader(vertexSrc, fragmentSrc);
 		}
 
+		PE_CORE_ASSERT(false, "Renderer not supported");
 		return nullptr;
 	}
 }
