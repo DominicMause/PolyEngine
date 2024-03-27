@@ -42,10 +42,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+    <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+    <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsWindow.h">
       <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine.h">
@@ -1348,14 +1348,17 @@
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Shader.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\Buffer.h" />
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+    <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+    <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\PolyEngine\Application.cpp">
@@ -1379,7 +1382,10 @@
     <ClCompile Include="src\pepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Shader.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>

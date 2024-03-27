@@ -143,9 +143,10 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\PolyEngine.h" />
     <ClInclude Include="src\PolyEngine\Application.h" />
     <ClInclude Include="src\PolyEngine\Core.h" />
@@ -161,7 +162,9 @@
     <ClInclude Include="src\PolyEngine\LayerStack.h" />
     <ClInclude Include="src\PolyEngine\Log.h" />
     <ClInclude Include="src\PolyEngine\MouseButtonCodes.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\PolyEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\Renderer.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Shader.h" />
     <ClInclude Include="src\PolyEngine\Window.h" />
     <ClInclude Include="src\pepch.h" />
@@ -583,9 +586,10 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsInput.cpp" />
+    <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\PolyEngine\Application.cpp" />
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiLayer.cpp" />
@@ -595,6 +599,8 @@
     <ClCompile Include="src\pepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>

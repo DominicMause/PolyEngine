@@ -5,7 +5,7 @@
 #include "PolyEngine/Events/KeyEvent.h"
 #include "PolyEngine/Events/MouseEvent.h"
 
-#include "Platform/OpenGL/OpenGLContext.h"
+#include "PolyEngine/Platform/OpenGL/OpenGLContext.h"
 
 namespace PolyEngine
 {
