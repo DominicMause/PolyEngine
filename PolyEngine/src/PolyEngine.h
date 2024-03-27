@@ -2,16 +2,16 @@
 
 // For use by PolyEngine applications
 
-#include "PolyEngine/Application.h"
-#include "PolyEngine/Layer.h"
-#include "PolyEngine/Log.h"
+#include "PolyEngine/Core/Application.h"
+#include "PolyEngine/Core/Layer.h"
+#include "PolyEngine/Core/Log.h"
 
-#include "PolyEngine/Input.h"
-#include "PolyEngine/KeyCodes.h"
-#include "PolyEngine/MouseButtonCodes.h"
+#include "PolyEngine/Input/Input.h"
+#include "PolyEngine/Input/KeyCodes.h"
+#include "PolyEngine/Input/MouseButtonCodes.h"
 
 #include "PolyEngine/ImGui/ImGuiLayer.h"
 
 // ------------Entry Point----------------------
-#include "PolyEngine/EntryPoint.h"
+#include "PolyEngine/Core/EntryPoint.h"
 // ---------------------------------------------

@@ -1,7 +1,7 @@
 #include "pepch.h"
 #include "WindowsInput.h"
 
-#include "PolyEngine/Application.h"
+#include "PolyEngine/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace PolyEngine

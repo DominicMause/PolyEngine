@@ -2,7 +2,7 @@
 
 #include "pepch.h"
 
-#include "PolyEngine/Core.h"
+#include "PolyEngine/Core/Core.h"
 #include "PolyEngine/Events/Event.h"
 
 namespace PolyEngine

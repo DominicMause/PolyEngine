@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PolyEngine/Window.h"
+#include "PolyEngine/Core/Window.h"
 #include "PolyEngine/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

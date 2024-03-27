@@ -1,10 +1,10 @@
 #include "pepch.h"
 #include "Application.h"
-#include "PolyEngine/Log.h"
+#include "PolyEngine/Core/Log.h"
 
 #include <glad/glad.h>
 
-#include "Input.h"
+#include "PolyEngine/Input/Input.h"
 
 namespace PolyEngine {
 

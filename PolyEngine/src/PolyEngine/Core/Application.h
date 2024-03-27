@@ -2,8 +2,8 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "PolyEngine/LayerStack.h"
-#include "Events/Event.h"
+#include "PolyEngine/Core/LayerStack.h"
+#include "PolyEngine/Events/Event.h"
 
 #include "PolyEngine/Events/ApplicationEvent.h"
 

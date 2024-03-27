@@ -51,13 +51,13 @@
     <ClInclude Include="src\PolyEngine.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Application.h">
+    <ClInclude Include="src\PolyEngine\Core\Application.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Core.h">
+    <ClInclude Include="src\PolyEngine\Core\Core.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\EntryPoint.h">
+    <ClInclude Include="src\PolyEngine\Core\EntryPoint.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Events\ApplicationEvent.h">
@@ -75,25 +75,25 @@
     <ClInclude Include="src\PolyEngine\ImGui\ImGuiLayer.h">
       <Filter>src\PolyEngine\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Input.h">
+    <ClInclude Include="src\PolyEngine\Input\Input.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\KeyCodes.h">
+    <ClInclude Include="src\PolyEngine\Input\KeyCodes.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Layer.h">
+    <ClInclude Include="src\PolyEngine\Core\Layer.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\LayerStack.h">
+    <ClInclude Include="src\PolyEngine\Core\LayerStack.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Log.h">
+    <ClInclude Include="src\PolyEngine\Core\Log.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\MouseButtonCodes.h">
+    <ClInclude Include="src\PolyEngine\Input\MouseButtonCodes.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Window.h">
+    <ClInclude Include="src\PolyEngine\Core\Window.h">
       <Filter>src\PolyEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\pepch.h">
@@ -1361,7 +1361,7 @@
     <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolyEngine\Application.cpp">
+    <ClCompile Include="src\PolyEngine\Core\Application.cpp">
       <Filter>src\PolyEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiBuild.cpp">
@@ -1370,13 +1370,13 @@
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiLayer.cpp">
       <Filter>src\PolyEngine\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolyEngine\Layer.cpp">
+    <ClCompile Include="src\PolyEngine\Core\Layer.cpp">
       <Filter>src\PolyEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolyEngine\LayerStack.cpp">
+    <ClCompile Include="src\PolyEngine\Core\LayerStack.cpp">
       <Filter>src\PolyEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolyEngine\Log.cpp">
+    <ClCompile Include="src\PolyEngine\Core\Log.cpp">
       <Filter>src\PolyEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\pepch.cpp">

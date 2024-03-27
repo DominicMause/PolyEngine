@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PolyEngine/Input.h"
+#include "PolyEngine/Input/Input.h"
 
 namespace PolyEngine
 {

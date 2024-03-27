@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "PolyEngine/Log.h"
+#include "PolyEngine/Core/Log.h"
 
 #ifdef PE_PLATFORM_WINDOWS
 	#include <Windows.h>

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "PolyEngine/Core.h"
 #include "PolyEngine/Renderer/Buffer.h"
 
 namespace PolyEngine
