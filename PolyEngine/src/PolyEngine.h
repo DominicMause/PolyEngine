@@ -12,6 +12,8 @@
 
 #include "PolyEngine/ImGui/ImGuiLayer.h"
 
+#include "PolyEngine/Renderer/Renderer.h"
+
 // ------------Entry Point----------------------
 #include "PolyEngine/Core/EntryPoint.h"
 // ---------------------------------------------

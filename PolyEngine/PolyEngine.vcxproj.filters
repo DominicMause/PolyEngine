@@ -1356,6 +1356,9 @@
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\PolyEngine\Renderer\VertexArray.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsInput.cpp">
@@ -1393,5 +1396,8 @@
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.cpp" />
   </ItemGroup>
 </Project>

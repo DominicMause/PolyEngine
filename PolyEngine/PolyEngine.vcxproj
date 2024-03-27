@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsInput.h" />
@@ -166,7 +167,9 @@
     <ClInclude Include="src\PolyEngine\Input\MouseButtonCodes.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\PolyEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\RendererAPI.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Shader.h" />
     <ClInclude Include="src\PolyEngine\Core\Window.h" />
     <ClInclude Include="src\pepch.h" />
@@ -591,6 +594,7 @@
   <ItemGroup>
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsInput.cpp" />
@@ -605,7 +609,9 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Shader.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\VertexArray.cpp" />
   </ItemGroup>
