@@ -39,7 +39,6 @@ namespace PolyEngine
 
 		PE_CORE_INFO("Creating Window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
-
 		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
