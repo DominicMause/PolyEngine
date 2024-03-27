@@ -13,7 +13,7 @@ public:
 
 	void OnUpdate() override
 	{
-		
+
 	}
 
 	virtual void OnImGuiRender() override

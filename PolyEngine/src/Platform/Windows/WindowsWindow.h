@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PolyEngine/Window.h"
+#include "PolyEngine/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -38,6 +39,7 @@ namespace PolyEngine
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

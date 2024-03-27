@@ -143,6 +143,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\PolyEngine.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="src\PolyEngine\LayerStack.h" />
     <ClInclude Include="src\PolyEngine\Log.h" />
     <ClInclude Include="src\PolyEngine\MouseButtonCodes.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\PolyEngine\Window.h" />
     <ClInclude Include="src\pepch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -580,6 +582,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\PolyEngine\Application.cpp" />
