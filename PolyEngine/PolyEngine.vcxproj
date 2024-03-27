@@ -146,6 +146,7 @@
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\PolyEngine.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="src\PolyEngine\Renderer\Shader.h" />
     <ClInclude Include="src\PolyEngine\Core\Window.h" />
     <ClInclude Include="src\pepch.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\VertexArray.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -590,6 +592,7 @@
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\PolyEngine\Core\Application.cpp" />
@@ -604,6 +607,7 @@
     <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Shader.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">

@@ -11,6 +11,7 @@
 
 #include "PolyEngine/Renderer/Shader.h"
 #include "PolyEngine/Renderer/Buffer.h"
+#include <PolyEngine/Renderer/VertexArray.h>
 
 namespace PolyEngine {
 
@@ -37,10 +38,9 @@ namespace PolyEngine {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
-		std::unique_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+		std::shared_ptr<VertexArray> m_SquareVertexArray;
+		std::shared_ptr<Shader> m_Shader;
 
 		static Application* s_Instance;
 	};

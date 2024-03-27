@@ -10,27 +10,6 @@ namespace PolyEngine {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-			case ShaderDataType::Float:		
-			case ShaderDataType::Float2:	
-			case ShaderDataType::Float3:	
-			case ShaderDataType::Float4:	
-			case ShaderDataType::Mat3:		
-			case ShaderDataType::Mat4:		return GL_FLOAT;
-			case ShaderDataType::Int:		
-			case ShaderDataType::Int2:		
-			case ShaderDataType::Int3:		
-			case ShaderDataType::Int4:		return GL_INT;
-			case ShaderDataType::Bool:		return GL_BOOL;
-		}
-
-		PE_CORE_ASSERT(false, "Unkown ShaderDataType");
-		return 0;
-	}
-
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application() 
@@ -44,39 +23,48 @@ namespace PolyEngine {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[3 * 7] = {
-			-0.5f, -0.5f,  0.0f, 0.8f, 0.1f, 0.2f, 1.0f,
-			 0.5f, -0.5f,  0.0f, 0.2f, 0.8f, 0.1f, 1.0f,
-			 0.0f,  0.5f,  0.0f, 0.1f, 0.2f, 0.8f, 1.0f
+			-0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+			 0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			 0.0f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
 		};
-
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 		BufferLayout layout = {
 			{ ShaderDataType::Float3, "a_Position" },
 			{ ShaderDataType::Float4, "a_Color" }
 		};
-
-		m_VertexBuffer->SetLayout(layout);
-		uint32_t index = 0;
-		for (const auto& element : m_VertexBuffer->GetLayout())
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, element.GetComponentCount(), ShaderDataTypeToOpenGLBaseType(element.Type), 
-				element.Normalized ? GL_TRUE : GL_FALSE, m_VertexBuffer->GetLayout().GetStride(),
-				(const void*)element.Offset);
-			index++;
-		}
-
-
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
+		
 		uint32_t indicies[3] = {
 			0, 1, 2
 		};
+		std::shared_ptr<IndexBuffer> indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create(indicies, 6));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_IndexBuffer.reset(IndexBuffer::Create(indicies, 3));
+		m_SquareVertexArray.reset(VertexArray::Create());
+		float verticesSquare[4 * 7] = {
+			-0.75f, -0.75f,  0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			 0.75f, -0.75f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			 0.75f,  0.75f,  0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			-0.75f,  0.75f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f
+		};
+		std::shared_ptr<VertexBuffer> squareVB;
+		squareVB.reset(VertexBuffer::Create(verticesSquare, sizeof(verticesSquare)));
+		squareVB->SetLayout(layout);
+		m_SquareVertexArray->AddVertexBuffer(squareVB);
+
+		uint32_t indiciesSquare[6] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+		std::shared_ptr<IndexBuffer> squareIB;
+		squareIB.reset(IndexBuffer::Create(indiciesSquare, sizeof(indiciesSquare)));
+		m_SquareVertexArray->SetIndexBuffer(squareIB);
 
 		std::string vertexSrc = R"(
 			#version 330
@@ -131,8 +119,11 @@ namespace PolyEngine {
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			m_Shader->Bind();
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			m_SquareVertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			m_VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
 			{
