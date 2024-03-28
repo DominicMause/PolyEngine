@@ -175,6 +175,7 @@ namespace PolyEngine
 		for (auto id : glShaderIDs)
 		{
 			glDetachShader(programm, id);
+			glDeleteShader(id);
 		}
 
 		m_RendererId = programm;
