@@ -4,20 +4,32 @@
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Platform">
-      <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Platform\Windows">
-      <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\PolyEngine">
       <UniqueIdentifier>{F61EF8E8-E2EC-EBEE-CB80-5C15B7EDC753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\PolyEngine\Core">
+      <UniqueIdentifier>{0E0D0980-7A6E-E68D-03DC-2C406F3C1D4D}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\PolyEngine\Events">
       <UniqueIdentifier>{1A9AA2AB-8606-5EA6-4FFA-F503BB25800E}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\PolyEngine\ImGui">
       <UniqueIdentifier>{A0749581-8C03-1F4B-3522-334621902FF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\PolyEngine\Input">
+      <UniqueIdentifier>{75AF9681-613E-204B-0A5D-3446F6CA30F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\PolyEngine\Platform">
+      <UniqueIdentifier>{0A90CF3A-76C7-17D2-7FD1-7BF5EB873ECB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\PolyEngine\Platform\OpenGL">
+      <UniqueIdentifier>{FE899C40-EAAF-66A7-D3F5-EB72BFBA8B73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\PolyEngine\Platform\Windows">
+      <UniqueIdentifier>{44A449AC-B087-58EC-B98A-862825ED1E3D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\PolyEngine\Renderer">
+      <UniqueIdentifier>{5C97AC15-C8CE-F4AC-D1D8-58D03D8F1BA6}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -40,25 +52,37 @@
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\stb_image">
+      <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsInput.h">
-      <Filter>src\Platform\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsWindow.h">
-      <Filter>src\Platform\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="src\PolyEngine.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Core\Application.h">
-      <Filter>src\PolyEngine</Filter>
+      <Filter>src\PolyEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Core\Core.h">
-      <Filter>src\PolyEngine</Filter>
+      <Filter>src\PolyEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Core\EntryPoint.h">
-      <Filter>src\PolyEngine</Filter>
+      <Filter>src\PolyEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Core\Layer.h">
+      <Filter>src\PolyEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Core\LayerStack.h">
+      <Filter>src\PolyEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Core\Log.h">
+      <Filter>src\PolyEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Core\Timestep.h">
+      <Filter>src\PolyEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Core\Window.h">
+      <Filter>src\PolyEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Events\ApplicationEvent.h">
       <Filter>src\PolyEngine\Events</Filter>
@@ -76,25 +100,64 @@
       <Filter>src\PolyEngine\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Input\Input.h">
-      <Filter>src\PolyEngine</Filter>
+      <Filter>src\PolyEngine\Input</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Input\KeyCodes.h">
-      <Filter>src\PolyEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PolyEngine\Core\Layer.h">
-      <Filter>src\PolyEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PolyEngine\Core\LayerStack.h">
-      <Filter>src\PolyEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PolyEngine\Core\Log.h">
-      <Filter>src\PolyEngine</Filter>
+      <Filter>src\PolyEngine\Input</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Input\MouseButtonCodes.h">
-      <Filter>src\PolyEngine</Filter>
+      <Filter>src\PolyEngine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Core\Window.h">
-      <Filter>src\PolyEngine</Filter>
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLTexture.h">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsInput.h">
+      <Filter>src\PolyEngine\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsWindow.h">
+      <Filter>src\PolyEngine\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Renderer\Buffer.h">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Renderer\GraphicsContext.h">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Renderer\OrtographicCamera.h">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Renderer\RenderCommand.h">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Renderer\Renderer.h">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Renderer\RendererAPI.h">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Renderer\Shader.h">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Renderer\Texture.h">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PolyEngine\Renderer\VertexArray.h">
+      <Filter>src\PolyEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\pepch.h">
       <Filter>src</Filter>
@@ -1347,30 +1410,22 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\PolyEngine\Renderer\Shader.h" />
-    <ClInclude Include="src\PolyEngine\Renderer\Buffer.h" />
-    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\PolyEngine\Renderer\Renderer.h" />
-    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="src\PolyEngine\Renderer\VertexArray.h" />
-    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\PolyEngine\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\PolyEngine\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\PolyEngine\Renderer\OrtographicCamera.h" />
-    <ClInclude Include="src\PolyEngine\Core\Timestep.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsInput.cpp">
-      <Filter>src\Platform\Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsWindow.cpp">
-      <Filter>src\Platform\Windows</Filter>
-    </ClCompile>
     <ClCompile Include="src\PolyEngine\Core\Application.cpp">
-      <Filter>src\PolyEngine</Filter>
+      <Filter>src\PolyEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Core\Layer.cpp">
+      <Filter>src\PolyEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Core\LayerStack.cpp">
+      <Filter>src\PolyEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Core\Log.cpp">
+      <Filter>src\PolyEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiBuild.cpp">
       <Filter>src\PolyEngine\ImGui</Filter>
@@ -1378,29 +1433,59 @@
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiLayer.cpp">
       <Filter>src\PolyEngine\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolyEngine\Core\Layer.cpp">
-      <Filter>src\PolyEngine</Filter>
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolyEngine\Core\LayerStack.cpp">
-      <Filter>src\PolyEngine</Filter>
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolyEngine\Core\Log.cpp">
-      <Filter>src\PolyEngine</Filter>
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLTexture.cpp">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>src\PolyEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsInput.cpp">
+      <Filter>src\PolyEngine\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsWindow.cpp">
+      <Filter>src\PolyEngine\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Renderer\OrtographicCamera.cpp">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Renderer\RenderCommand.cpp">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Renderer\RendererAPI.cpp">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Renderer\Shader.cpp">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Renderer\Texture.cpp">
+      <Filter>src\PolyEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolyEngine\Renderer\VertexArray.cpp">
+      <Filter>src\PolyEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\pepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\PolyEngine\Renderer\Shader.cpp" />
-    <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\PolyEngine\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\PolyEngine\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\PolyEngine\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\PolyEngine\Renderer\OrtographicCamera.cpp" />
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

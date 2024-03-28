@@ -18,6 +18,7 @@
 #include "PolyEngine/Renderer/Renderer.h"
 #include "PolyEngine/Renderer/RenderCommand.h"
 #include "PolyEngine/Renderer/Shader.h"
+#include "PolyEngine/Renderer/Texture.h"
 #include "PolyEngine/Renderer/VertexArray.h"
 
 #include "PolyEngine/Events/ApplicationEvent.h"

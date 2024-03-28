@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "PolyEngine/vendor/GLFW/include"
 IncludeDir["Glad"] = "PolyEngine/vendor/Glad/include"
 IncludeDir["ImGui"] = "PolyEngine/vendor/imgui"
 IncludeDir["glm"] = "PolyEngine/vendor/glm"
+IncludeDir["stb_image"] = "PolyEngine/vendor/stb_image"
 
 include "PolyEngine/vendor/GLFW"
 include "PolyEngine/vendor/Glad"
@@ -39,6 +40,8 @@ project "PolyEngine"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
@@ -55,7 +58,8 @@ project "PolyEngine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links 

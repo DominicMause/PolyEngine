@@ -17,39 +17,20 @@ public:
 		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		m_Camera.SetPosition(glm::vec3(0,0,-1));
-		m_VertexArray.reset(VertexArray::Create());
-
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-			 0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			 0.0f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-		};
-		Ref<VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		BufferLayout layout = {
-			{ ShaderDataType::Float3, "a_Position" },
-			{ ShaderDataType::Float4, "a_Color" }
-		};
-		vertexBuffer->SetLayout(layout);
-		m_VertexArray->AddVertexBuffer(vertexBuffer);
-
-		uint32_t indicies[3] = {
-			0, 1, 2
-		};
-		Ref<IndexBuffer> indexBuffer;
-		indexBuffer.reset(IndexBuffer::Create(indicies, 6));
-		m_VertexArray->SetIndexBuffer(indexBuffer);
-
+		
 		m_SquareVertexArray.reset(VertexArray::Create());
-		float verticesSquare[4 * 7] = {
-			-0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			 0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			 0.5f,  0.5f,  0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-			-0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f
+		float verticesSquare[4 * 5] = {
+			-0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f,  0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f,  0.0f, 0.0f, 1.0f
 		};
 		Ref<VertexBuffer> squareVB;
 		squareVB.reset(VertexBuffer::Create(verticesSquare, sizeof(verticesSquare)));
-		squareVB->SetLayout(layout);
+		squareVB->SetLayout({
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float2, "a_TexCoord" }
+			});
 		m_SquareVertexArray->AddVertexBuffer(squareVB);
 
 		uint32_t indiciesSquare[6] = {
@@ -64,7 +45,6 @@ public:
 			#version 330
 			
 			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
@@ -89,6 +69,46 @@ public:
 		)";
 
 		m_Shader.reset(Shader::Create(vertexSrc, fragmentSrc));
+
+		std::string textureVertexSrc = R"(
+			#version 330
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+				v_TexCoord = a_TexCoord;
+			}
+		)";
+
+		std::string textureFragmentSrc = R"(
+			#version 330
+			
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Shader::Create(textureVertexSrc, textureFragmentSrc));
+
+		m_Texture = Texture2D::Create("assets/textures/container_diffuse.png");
+
+		std::dynamic_pointer_cast<OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Timestep ts) override
@@ -108,16 +128,19 @@ public:
 		std::dynamic_pointer_cast<OpenGLShader>(m_Shader)->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(m_Shader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
-		for (int y = 0; y < 20; y++)
+		for (int y = -10; y <= 10; y++)
 		{
-			for (int x = 0; x < 20; x++)
+			for (int x = -10; x <= 10; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
 				Renderer::Submit(m_Shader, m_SquareVertexArray, transform);
 			}
 		}
-		Renderer::Submit(m_Shader, m_VertexArray);
+
+		m_Texture->Bind();
+
+		Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		Renderer::EndScene();
 	}
 
@@ -163,10 +186,12 @@ public:
 	}
 
 private:
-	Ref<VertexArray> m_VertexArray;
 	Ref<VertexArray> m_SquareVertexArray;
 	Ref<Shader> m_Shader;
+	Ref<Shader> m_TextureShader;
 	OrtographicCamera m_Camera;
+
+	Ref<Texture2D> m_Texture;
 
 	glm::vec3 m_CameraPosition = glm::vec3(0.0f);
 	float m_CameraRotaion = 0;
