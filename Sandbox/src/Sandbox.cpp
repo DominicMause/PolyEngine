@@ -24,7 +24,7 @@ public:
 			 0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 			 0.0f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
 		};
-		std::shared_ptr<VertexBuffer> vertexBuffer;
+		Ref<VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 		BufferLayout layout = {
 			{ ShaderDataType::Float3, "a_Position" },
@@ -36,7 +36,7 @@ public:
 		uint32_t indicies[3] = {
 			0, 1, 2
 		};
-		std::shared_ptr<IndexBuffer> indexBuffer;
+		Ref<IndexBuffer> indexBuffer;
 		indexBuffer.reset(IndexBuffer::Create(indicies, 6));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -47,7 +47,7 @@ public:
 			 0.5f,  0.5f,  0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
 			-0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f
 		};
-		std::shared_ptr<VertexBuffer> squareVB;
+		Ref<VertexBuffer> squareVB;
 		squareVB.reset(VertexBuffer::Create(verticesSquare, sizeof(verticesSquare)));
 		squareVB->SetLayout(layout);
 		m_SquareVertexArray->AddVertexBuffer(squareVB);
@@ -56,7 +56,7 @@ public:
 			0, 1, 2,
 			2, 3, 0
 		};
-		std::shared_ptr<IndexBuffer> squareIB;
+		Ref<IndexBuffer> squareIB;
 		squareIB.reset(IndexBuffer::Create(indiciesSquare, sizeof(indiciesSquare)));
 		m_SquareVertexArray->SetIndexBuffer(squareIB);
 
@@ -163,9 +163,9 @@ public:
 	}
 
 private:
-	std::shared_ptr<VertexArray> m_VertexArray;
-	std::shared_ptr<VertexArray> m_SquareVertexArray;
-	std::shared_ptr<Shader> m_Shader;
+	Ref<VertexArray> m_VertexArray;
+	Ref<VertexArray> m_SquareVertexArray;
+	Ref<Shader> m_Shader;
 	OrtographicCamera m_Camera;
 
 	glm::vec3 m_CameraPosition = glm::vec3(0.0f);

@@ -26,7 +26,7 @@ namespace PolyEngine
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer> vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer> vertexBuffer)
 	{
 		PE_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vetex buffer has no layout!");
 
@@ -48,7 +48,7 @@ namespace PolyEngine
 		}
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer> indexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer> indexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();
