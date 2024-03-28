@@ -1,9 +1,12 @@
 #include <PolyEngine.h>
+#include <PolyEngine/Platform/OpenGL/OpenGLShader.h>
+
 #include "imgui/imgui.h"
 #include <string>
 #include <iostream>
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 using namespace PolyEngine;
 
@@ -66,12 +69,9 @@ public:
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
 
-			out vec4 v_Color;
-
 			void main()
 			{
 				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-				v_Color = a_Color;
 			}
 		)";
 
@@ -80,11 +80,11 @@ public:
 			
 			layout(location = 0) out vec4 color;
 
-			in vec4 v_Color;
+			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = v_Color;
+				color = vec4(u_Color,1.0f);
 			}
 		)";
 
@@ -104,6 +104,10 @@ public:
 		Renderer::BeginScene(m_Camera);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		std::dynamic_pointer_cast<OpenGLShader>(m_Shader)->Bind();
+		std::dynamic_pointer_cast<OpenGLShader>(m_Shader)->UploadUniformFloat3("u_Color", m_SquareColor);
+
 		for (int y = 0; y < 20; y++)
 		{
 			for (int x = 0; x < 20; x++)
@@ -119,7 +123,9 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
-		
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::End();
 	}
 
 	void OnEvent(PolyEngine::Event& event)
@@ -166,6 +172,8 @@ private:
 	float m_CameraRotaion = 0;
 	float m_CameraSpeed = 5.0f;
 	float m_RotationSpeed = 180.0f;
+
+	glm::vec3 m_SquareColor = { 0.8f, 0.2f, 0.3f };
 };
 
 class Sandbox : public Application 
