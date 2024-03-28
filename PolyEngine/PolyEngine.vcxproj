@@ -143,6 +143,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\PolyEngine\Core\Timestep.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.h" />

@@ -2,6 +2,7 @@
 
 #include "PolyEngine/Core/Core.h"
 #include "PolyEngine/Events/Event.h"
+#include "PolyEngine/Core/Timestep.h"
 
 namespace PolyEngine
 {
@@ -13,7 +14,7 @@ namespace PolyEngine
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

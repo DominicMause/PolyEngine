@@ -3,6 +3,11 @@
 #include <string>
 #include <iostream>
 
+#define GLM_ENABLE_EXPERIMENTAL
+
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/quaternion.hpp>
+
 using namespace PolyEngine;
 
 class ExampleLayer : public Layer
@@ -63,12 +68,13 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Model;
 
 			out vec4 v_Color;
 
 			void main()
 			{
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
 				v_Color = a_Color;
 			}
 		)";
@@ -89,59 +95,60 @@ public:
 		m_Shader.reset(Shader::Create(vertexSrc, fragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Timestep ts) override
 	{
-		glm::vec3 position = m_Camera.GetPosition();
-		if (Input::IsKeyPressed(POLY_KEY_W))
-		{
-			position.y += 0.005f;
-		}
-		if (Input::IsKeyPressed(POLY_KEY_S))
-		{
-			position.y -= 0.005f;
-		}
-		if (Input::IsKeyPressed(POLY_KEY_A))
-		{
-			position.x -= 0.005f;
-		}
-		if (Input::IsKeyPressed(POLY_KEY_D))
-		{
-			position.x += 0.005f;
-		}
-		m_Camera.SetPosition(position);
+		MoveCamera(ts);
+
+		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.SetRotation(m_CameraRotaion);
 
 		RenderCommand::SetClearColor({ 0.1f, 0.075f, 0.075f, 1.0f });
 		RenderCommand::Clear();
 
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f)) * glm::toMat4(glm::quat(0.0f, 0.0f, 0.5f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 0.8f, 1.0f));
+
 		Renderer::BeginScene(m_Camera);
-		Renderer::Submit(m_Shader, m_SquareVertexArray);
-		Renderer::Submit(m_Shader, m_VertexArray);
+		Renderer::Submit(m_Shader, m_SquareVertexArray, model);
+		Renderer::Submit(m_Shader, m_VertexArray, model);
 		Renderer::EndScene();
 	}
 
 	virtual void OnImGuiRender() override
 	{
-		ImGui::Begin("MousePos");
-		auto [x, y] = Input::GetMousePosition();
-		std::ostringstream stream;
-		stream << x << ", " << y;
-		ImGui::Text(stream.str().c_str());
-		ImGui::End();
+		
 	}
 
 	void OnEvent(PolyEngine::Event& event)
 	{
-		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseScrolledEvent>(PE_BIND_EVENT_FN(ExampleLayer::MouseScrolled));
+		
 	}
 
-	bool MouseScrolled(MouseScrolledEvent& event)
+	void MoveCamera(Timestep ts)
 	{
-		float rotation = m_Camera.GetRotation();
-		rotation += (event.GetYOffset() * 0.5f);
-		m_Camera.SetRotation(rotation);
-
-		return true;
+		if (Input::IsKeyPressed(POLY_KEY_W))
+		{
+			m_CameraPosition.y += m_CameraSpeed * ts;
+		}
+		if (Input::IsKeyPressed(POLY_KEY_S))
+		{
+			m_CameraPosition.y -= m_CameraSpeed * ts;
+		}
+		if (Input::IsKeyPressed(POLY_KEY_A))
+		{
+			m_CameraPosition.x -= m_CameraSpeed * ts;
+		}
+		if (Input::IsKeyPressed(POLY_KEY_D))
+		{
+			m_CameraPosition.x += m_CameraSpeed * ts;
+		}
+		if (Input::IsKeyPressed(POLY_KEY_Q))
+		{
+			m_CameraRotaion += m_RotationSpeed * ts;
+		}
+		if (Input::IsKeyPressed(POLY_KEY_E))
+		{
+			m_CameraRotaion -= m_RotationSpeed * ts;
+		}
 	}
 
 private:
@@ -149,6 +156,10 @@ private:
 	std::shared_ptr<VertexArray> m_SquareVertexArray;
 	std::shared_ptr<Shader> m_Shader;
 	OrtographicCamera m_Camera;
+	glm::vec3 m_CameraPosition = glm::vec3(0.0f);
+	float m_CameraRotaion = 0;
+	float m_CameraSpeed = 5.0f;
+	float m_RotationSpeed = 180.0f;
 };
 
 class Sandbox : public Application 
