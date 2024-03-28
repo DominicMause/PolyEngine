@@ -68,7 +68,7 @@ namespace PolyEngine
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
 		std::string result;
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -108,8 +108,9 @@ namespace PolyEngine
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
 		GLint programm = glCreateProgram();
-		std::vector<GLenum> glShaderIDs(shaderSources.size());
-
+		PE_CORE_ASSERT(shaderSources <= 2, "Only two shaders supported!");
+		std::array<GLenum, 2> glShaderIDs;
+		int glShaderIDIndex = 0;
 		for (auto& kv : shaderSources)
 		{
 			GLenum type = kv.first;
@@ -137,7 +138,7 @@ namespace PolyEngine
 			}
 
 			glAttachShader(programm, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIDIndex++] = shader;
 		}
 
 		glLinkProgram(programm);
