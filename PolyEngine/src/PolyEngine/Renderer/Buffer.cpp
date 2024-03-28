@@ -27,7 +27,7 @@ namespace PolyEngine
 			case RendererAPI::API::None:
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return new OpenGLIndexBuffer(indices, size);
+				return new OpenGLIndexBuffer(indices, (uint32_t)size);
 		}
 
 		PE_CORE_ASSERT(false, "Renderer not supported");

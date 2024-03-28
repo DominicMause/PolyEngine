@@ -7,7 +7,7 @@
 
 namespace PolyEngine
 {
-	class POLY_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

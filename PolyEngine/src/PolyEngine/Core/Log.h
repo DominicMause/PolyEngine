@@ -6,7 +6,7 @@
 
 namespace PolyEngine
 {
-	class POLY_API Log
+	class Log
 	{
 	public:
 		static void Init();

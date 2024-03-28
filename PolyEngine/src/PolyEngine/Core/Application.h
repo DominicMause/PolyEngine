@@ -13,7 +13,7 @@
 
 namespace PolyEngine {
 
-	class POLY_API Application
+	class Application
 	{
 	public:
 		Application();

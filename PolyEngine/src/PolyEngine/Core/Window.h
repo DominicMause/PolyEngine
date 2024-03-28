@@ -19,7 +19,7 @@ namespace PolyEngine
 			:Title(title), Width(width), Height(height){}
 	};
 
-	class POLY_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

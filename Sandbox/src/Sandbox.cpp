@@ -11,9 +11,8 @@ class ExampleLayer : public Layer
 {
 public:
 	ExampleLayer()
-		:Layer("Example")
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
-		m_Camera = OrtographicCamera(-1.6f, 1.6f, -0.9f, 0.9f);
 		m_Camera.SetPosition(glm::vec3(0,0,-1));
 		m_VertexArray.reset(VertexArray::Create());
 

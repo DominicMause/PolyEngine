@@ -7,7 +7,6 @@ namespace PolyEngine
 	class OrtographicCamera
 	{
 	public: 
-		OrtographicCamera(){}
 		OrtographicCamera(float left, float right, float bottom, float top);
 
 		const glm::vec3& GetPosition() const { return m_Position; }
