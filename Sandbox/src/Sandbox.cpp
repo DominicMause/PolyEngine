@@ -3,10 +3,7 @@
 #include <string>
 #include <iostream>
 
-#define GLM_ENABLE_EXPERIMENTAL
-
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/quaternion.hpp>
 
 using namespace PolyEngine;
 
@@ -43,10 +40,10 @@ public:
 
 		m_SquareVertexArray.reset(VertexArray::Create());
 		float verticesSquare[4 * 7] = {
-			-0.75f, -0.75f,  0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			 0.75f, -0.75f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			 0.75f,  0.75f,  0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-			-0.75f,  0.75f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f
+			-0.5f, -0.5f,  0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			 0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			 0.5f,  0.5f,  0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f,  0.0f, 1.0f, 1.0f, 1.0f, 1.0f
 		};
 		std::shared_ptr<VertexBuffer> squareVB;
 		squareVB.reset(VertexBuffer::Create(verticesSquare, sizeof(verticesSquare)));
@@ -68,13 +65,13 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Model;
+			uniform mat4 u_Transform;
 
 			out vec4 v_Color;
 
 			void main()
 			{
-				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 				v_Color = a_Color;
 			}
 		)";
@@ -105,11 +102,19 @@ public:
 		RenderCommand::SetClearColor({ 0.1f, 0.075f, 0.075f, 1.0f });
 		RenderCommand::Clear();
 
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f)) * glm::toMat4(glm::quat(0.0f, 0.0f, 0.5f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, 0.8f, 1.0f));
-
 		Renderer::BeginScene(m_Camera);
-		Renderer::Submit(m_Shader, m_SquareVertexArray, model);
-		Renderer::Submit(m_Shader, m_VertexArray, model);
+
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		for (int y = 0; y < 20; y++)
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				Renderer::Submit(m_Shader, m_SquareVertexArray, transform);
+			}
+		}
+		Renderer::Submit(m_Shader, m_VertexArray);
 		Renderer::EndScene();
 	}
 
@@ -141,6 +146,7 @@ public:
 		{
 			m_CameraPosition.x += m_CameraSpeed * ts;
 		}
+
 		if (Input::IsKeyPressed(POLY_KEY_Q))
 		{
 			m_CameraRotaion += m_RotationSpeed * ts;
@@ -156,6 +162,7 @@ private:
 	std::shared_ptr<VertexArray> m_SquareVertexArray;
 	std::shared_ptr<Shader> m_Shader;
 	OrtographicCamera m_Camera;
+
 	glm::vec3 m_CameraPosition = glm::vec3(0.0f);
 	float m_CameraRotaion = 0;
 	float m_CameraSpeed = 5.0f;
