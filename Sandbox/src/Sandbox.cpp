@@ -41,69 +41,8 @@ public:
 		squareIB.reset(IndexBuffer::Create(indiciesSquare, sizeof(indiciesSquare)));
 		m_SquareVertexArray->SetIndexBuffer(squareIB);
 
-		std::string vertexSrc = R"(
-			#version 330
-			
-			layout(location = 0) in vec3 a_Position;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			void main()
-			{
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string fragmentSrc = R"(
-			#version 330
-			
-			layout(location = 0) out vec4 color;
-
-			uniform vec3 u_Color;
-
-			void main()
-			{
-				color = vec4(u_Color,1.0f);
-			}
-		)";
-
-		m_Shader.reset(Shader::Create(vertexSrc, fragmentSrc));
-
-		std::string textureVertexSrc = R"(
-			#version 330
-			
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec2 v_TexCoord;
-
-			void main()
-			{
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-				v_TexCoord = a_TexCoord;
-			}
-		)";
-
-		std::string textureFragmentSrc = R"(
-			#version 330
-			
-			layout(location = 0) out vec4 color;
-
-			in vec2 v_TexCoord;
-
-			uniform sampler2D u_Texture;
-
-			void main()
-			{
-				color = texture(u_Texture, v_TexCoord);
-			}
-		)";
-
-		m_TextureShader.reset(Shader::Create(textureVertexSrc, textureFragmentSrc));
+		m_Shader.reset(Shader::Create("assets/shaders/FlatColor.glsl"));
+		m_TextureShader.reset(Shader::Create("assets/shaders/Texture.glsl"));
 
 		m_Texture = Texture2D::Create("assets/textures/container_diffuse.png");
 		m_TextureUser = Texture2D::Create("assets/textures/user.png");
@@ -114,6 +53,7 @@ public:
 
 	void OnUpdate(Timestep ts) override
 	{
+		m_Ts = ts;
 		MoveCamera(ts);
 
 		m_Camera.SetPosition(m_CameraPosition);
@@ -151,6 +91,7 @@ public:
 	virtual void OnImGuiRender() override
 	{
 		ImGui::Begin("Settings");
+		ImGui::Text("FPS %f", 1.0f/m_Ts);
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
 		ImGui::SliderFloat("Movement Speed", &m_CameraSpeed, 0, 50);
 		bool resetPos = ImGui::Button("Reset Position");
@@ -209,6 +150,8 @@ private:
 	float m_CameraRotaion = 0;
 	float m_CameraSpeed = 5.0f;
 	float m_RotationSpeed = 180.0f;
+	
+	Timestep m_Ts = 0;
 
 	glm::vec3 m_SquareColor = { 0.8f, 0.2f, 0.3f };
 };

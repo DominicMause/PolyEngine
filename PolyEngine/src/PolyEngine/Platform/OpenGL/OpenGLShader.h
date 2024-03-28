@@ -2,14 +2,16 @@
 
 #include "PolyEngine/Renderer/Shader.h"
 #include "PolyEngine/Renderer/Buffer.h"
-
 #include <glm/glm.hpp>
+
+typedef unsigned int GLenum;
 
 namespace PolyEngine
 {
 	class OpenGLShader : public Shader
 	{
 	public:
+		OpenGLShader(const std::string& filepath);
 		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
 		virtual ~OpenGLShader();
 
@@ -27,6 +29,10 @@ namespace PolyEngine
 		void UploadUniformMat4(std::string name, const glm::mat4& matrix);
 
 		static unsigned int ShaderDataTypeToOpenGLBaseType(ShaderDataType type);
+	private:
+		std::string ReadFile(const std::string& filepath);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
 	private:
 		uint32_t m_RendererId;
 	};
