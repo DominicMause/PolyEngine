@@ -106,6 +106,7 @@ public:
 		m_TextureShader.reset(Shader::Create(textureVertexSrc, textureFragmentSrc));
 
 		m_Texture = Texture2D::Create("assets/textures/container_diffuse.png");
+		m_TextureUser = Texture2D::Create("assets/textures/user.png");
 
 		std::dynamic_pointer_cast<OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -139,8 +140,11 @@ public:
 		}
 
 		m_Texture->Bind();
-
 		Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		m_TextureUser->Bind();
+		Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 		Renderer::EndScene();
 	}
 
@@ -148,6 +152,13 @@ public:
 	{
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::SliderFloat("Movement Speed", &m_CameraSpeed, 0, 50);
+		bool resetPos = ImGui::Button("Reset Position");
+		if (resetPos)
+		{
+			m_CameraPosition = glm::vec3(0);
+			m_CameraRotaion = 0;
+		}
 		ImGui::End();
 	}
 
@@ -192,6 +203,7 @@ private:
 	OrtographicCamera m_Camera;
 
 	Ref<Texture2D> m_Texture;
+	Ref<Texture2D> m_TextureUser;
 
 	glm::vec3 m_CameraPosition = glm::vec3(0.0f);
 	float m_CameraRotaion = 0;

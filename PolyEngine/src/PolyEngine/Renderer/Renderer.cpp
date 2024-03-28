@@ -6,6 +6,12 @@
 namespace PolyEngine
 {
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
+
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	void Renderer::BeginScene(OrtographicCamera& camera)
 	{
 		s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
