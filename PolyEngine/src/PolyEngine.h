@@ -13,6 +13,11 @@
 #include "PolyEngine/ImGui/ImGuiLayer.h"
 
 #include "PolyEngine/Renderer/Renderer.h"
+#include "PolyEngine/Renderer/OrtographicCamera.h"
+
+#include "PolyEngine/Events/ApplicationEvent.h"
+#include "PolyEngine/Events/MouseEvent.h"
+#include "PolyEngine/Events/KeyEvent.h"
 
 // ------------Entry Point----------------------
 #include "PolyEngine/Core/EntryPoint.h"

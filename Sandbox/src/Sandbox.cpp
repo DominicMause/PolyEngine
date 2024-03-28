@@ -11,6 +11,8 @@ public:
 	ExampleLayer()
 		:Layer("Example")
 	{
+		m_Camera = OrtographicCamera(-1.6f, 1.6f, -0.9f, 0.9f);
+		m_Camera.SetPosition(glm::vec3(0,0,-1));
 		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[3 * 7] = {
@@ -60,11 +62,13 @@ public:
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec4 v_Color;
 
 			void main()
 			{
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 				v_Color = a_Color;
 			}
 		)";
@@ -87,16 +91,31 @@ public:
 
 	void OnUpdate() override
 	{
+		glm::vec3 position = m_Camera.GetPosition();
+		if (Input::IsKeyPressed(POLY_KEY_W))
+		{
+			position.y += 0.005f;
+		}
+		if (Input::IsKeyPressed(POLY_KEY_S))
+		{
+			position.y -= 0.005f;
+		}
+		if (Input::IsKeyPressed(POLY_KEY_A))
+		{
+			position.x -= 0.005f;
+		}
+		if (Input::IsKeyPressed(POLY_KEY_D))
+		{
+			position.x += 0.005f;
+		}
+		m_Camera.SetPosition(position);
+
 		RenderCommand::SetClearColor({ 0.1f, 0.075f, 0.075f, 1.0f });
 		RenderCommand::Clear();
 
-		Renderer::BeginScene();
-
-		m_Shader->Bind();
-
-		Renderer::Submit(m_SquareVertexArray);
-		Renderer::Submit(m_VertexArray);
-
+		Renderer::BeginScene(m_Camera);
+		Renderer::Submit(m_Shader, m_SquareVertexArray);
+		Renderer::Submit(m_Shader, m_VertexArray);
 		Renderer::EndScene();
 	}
 
@@ -112,13 +131,24 @@ public:
 
 	void OnEvent(PolyEngine::Event& event)
 	{
-		
+		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<MouseScrolledEvent>(PE_BIND_EVENT_FN(ExampleLayer::MouseScrolled));
+	}
+
+	bool MouseScrolled(MouseScrolledEvent& event)
+	{
+		float rotation = m_Camera.GetRotation();
+		rotation += (event.GetYOffset() * 0.5f);
+		m_Camera.SetRotation(rotation);
+
+		return true;
 	}
 
 private:
 	std::shared_ptr<VertexArray> m_VertexArray;
 	std::shared_ptr<VertexArray> m_SquareVertexArray;
 	std::shared_ptr<Shader> m_Shader;
+	OrtographicCamera m_Camera;
 };
 
 class Sandbox : public Application 

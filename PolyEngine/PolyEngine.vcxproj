@@ -167,6 +167,7 @@
     <ClInclude Include="src\PolyEngine\Input\MouseButtonCodes.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\PolyEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\OrtographicCamera.h" />
     <ClInclude Include="src\PolyEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Renderer.h" />
     <ClInclude Include="src\PolyEngine\Renderer\RendererAPI.h" />
@@ -609,6 +610,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\OrtographicCamera.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\RendererAPI.cpp" />
