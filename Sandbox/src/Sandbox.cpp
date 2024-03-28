@@ -41,14 +41,15 @@ public:
 		squareIB.reset(IndexBuffer::Create(indiciesSquare, sizeof(indiciesSquare)));
 		m_SquareVertexArray->SetIndexBuffer(squareIB);
 
-		m_Shader.reset(Shader::Create("assets/shaders/FlatColor.glsl"));
-		m_TextureShader.reset(Shader::Create("assets/shaders/Texture.glsl"));
+		m_Shader = Shader::Create("assets/shaders/FlatColor.glsl");
+
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = Texture2D::Create("assets/textures/container_diffuse.png");
 		m_TextureUser = Texture2D::Create("assets/textures/user.png");
 
-		std::dynamic_pointer_cast<OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Timestep ts) override
@@ -79,11 +80,13 @@ public:
 			}
 		}
 
+
+		auto textureShader = m_ShaderLibrary.Get("Texture");
 		m_Texture->Bind();
-		Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Renderer::Submit(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_TextureUser->Bind();
-		Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Renderer::Submit(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Renderer::EndScene();
 	}
@@ -138,9 +141,9 @@ public:
 	}
 
 private:
+	ShaderLibrary m_ShaderLibrary;
 	Ref<VertexArray> m_SquareVertexArray;
 	Ref<Shader> m_Shader;
-	Ref<Shader> m_TextureShader;
 	OrtographicCamera m_Camera;
 
 	Ref<Texture2D> m_Texture;
