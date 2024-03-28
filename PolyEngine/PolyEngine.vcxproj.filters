@@ -138,7 +138,7 @@
     <ClInclude Include="src\PolyEngine\Renderer\GraphicsContext.h">
       <Filter>src\PolyEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Renderer\OrtographicCamera.h">
+    <ClInclude Include="src\PolyEngine\Renderer\OrthographicCamera.h">
       <Filter>src\PolyEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Renderer\RenderCommand.h">
@@ -1413,6 +1413,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\PolyEngine\Input\OrthographicCameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\PolyEngine\Core\Application.cpp">
@@ -1460,7 +1461,7 @@
     <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp">
       <Filter>src\PolyEngine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\PolyEngine\Renderer\OrtographicCamera.cpp">
+    <ClCompile Include="src\PolyEngine\Renderer\OrthographicCamera.cpp">
       <Filter>src\PolyEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\PolyEngine\Renderer\RenderCommand.cpp">
@@ -1487,5 +1488,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\PolyEngine\Input\OrthographicCameraController.cpp" />
   </ItemGroup>
 </Project>

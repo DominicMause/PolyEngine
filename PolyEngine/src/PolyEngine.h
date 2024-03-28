@@ -10,11 +10,11 @@
 #include "PolyEngine/Input/Input.h"
 #include "PolyEngine/Input/KeyCodes.h"
 #include "PolyEngine/Input/MouseButtonCodes.h"
+#include "PolyEngine/Input/OrthographicCameraController.h"
 
 #include "PolyEngine/ImGui/ImGuiLayer.h"
 
 #include "PolyEngine/Renderer/Buffer.h"
-#include "PolyEngine/Renderer/OrtographicCamera.h"
 #include "PolyEngine/Renderer/Renderer.h"
 #include "PolyEngine/Renderer/RenderCommand.h"
 #include "PolyEngine/Renderer/Shader.h"

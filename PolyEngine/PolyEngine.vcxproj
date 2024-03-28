@@ -83,6 +83,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <AdditionalOptions>-warnAsMessage %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -107,6 +108,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <AdditionalOptions>-warnAsMessage %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -132,6 +134,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <AdditionalOptions>-warnAsMessage %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -160,6 +163,7 @@
     <ClInclude Include="src\PolyEngine\Input\Input.h" />
     <ClInclude Include="src\PolyEngine\Input\KeyCodes.h" />
     <ClInclude Include="src\PolyEngine\Input\MouseButtonCodes.h" />
+    <ClInclude Include="src\PolyEngine\Input\OrthographicCameraController.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -170,7 +174,7 @@
     <ClInclude Include="src\PolyEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\PolyEngine\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\PolyEngine\Renderer\OrtographicCamera.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\PolyEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Renderer.h" />
     <ClInclude Include="src\PolyEngine\Renderer\RendererAPI.h" />
@@ -601,6 +605,7 @@
     <ClCompile Include="src\PolyEngine\Core\Layer.cpp" />
     <ClCompile Include="src\PolyEngine\Core\LayerStack.cpp" />
     <ClCompile Include="src\PolyEngine\Core\Log.cpp" />
+    <ClCompile Include="src\PolyEngine\Input\OrthographicCameraController.cpp" />
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.cpp" />
@@ -612,7 +617,7 @@
     <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\PolyEngine\Renderer\OrtographicCamera.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\RendererAPI.cpp" />

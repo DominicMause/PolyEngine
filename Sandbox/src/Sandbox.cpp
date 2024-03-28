@@ -14,10 +14,8 @@ class ExampleLayer : public Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+		: Layer("Example"), m_CameraController(16.0f/9.0f)
 	{
-		m_Camera.SetPosition(glm::vec3(0,0,-1));
-		
 		m_SquareVertexArray.reset(VertexArray::Create());
 		float verticesSquare[4 * 5] = {
 			-0.5f, -0.5f,  0.0f, 0.0f, 0.0f,
@@ -41,7 +39,7 @@ public:
 		squareIB.reset(IndexBuffer::Create(indiciesSquare, sizeof(indiciesSquare)));
 		m_SquareVertexArray->SetIndexBuffer(squareIB);
 
-		m_Shader = Shader::Create("assets/shaders/FlatColor.glsl");
+		m_ShaderLibrary.Load("assets/shaders/FlatColor.glsl");
 
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
@@ -54,29 +52,30 @@ public:
 
 	void OnUpdate(Timestep ts) override
 	{
+		// Update
+		m_CameraController.OnUpdate(ts);
 		m_Ts = ts;
-		MoveCamera(ts);
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotaion);
-
+		//Render
 		RenderCommand::SetClearColor({ 0.1f, 0.075f, 0.075f, 1.0f });
 		RenderCommand::Clear();
 
-		Renderer::BeginScene(m_Camera);
+		Renderer::BeginScene(m_CameraController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		std::dynamic_pointer_cast<OpenGLShader>(m_Shader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(m_Shader)->UploadUniformFloat3("u_Color", m_SquareColor);
+		auto flatShader = m_ShaderLibrary.Get("FlatColor");
+		std::dynamic_pointer_cast<OpenGLShader>(flatShader)->Bind();
+		std::dynamic_pointer_cast<OpenGLShader>(flatShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
+		m_TextureUser->Bind();
 		for (int y = -10; y <= 10; y++)
 		{
 			for (int x = -10; x <= 10; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				Renderer::Submit(m_Shader, m_SquareVertexArray, transform);
+				Renderer::Submit(flatShader, m_SquareVertexArray, transform);
 			}
 		}
 
@@ -96,64 +95,23 @@ public:
 		ImGui::Begin("Settings");
 		ImGui::Text("FPS %f", 1.0f/m_Ts);
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
-		ImGui::SliderFloat("Movement Speed", &m_CameraSpeed, 0, 50);
-		bool resetPos = ImGui::Button("Reset Position");
-		if (resetPos)
-		{
-			m_CameraPosition = glm::vec3(0);
-			m_CameraRotaion = 0;
-		}
 		ImGui::End();
 	}
 
 	void OnEvent(PolyEngine::Event& event)
 	{
-		
-	}
-
-	void MoveCamera(Timestep ts)
-	{
-		if (Input::IsKeyPressed(POLY_KEY_W))
-		{
-			m_CameraPosition.y += m_CameraSpeed * ts;
-		}
-		if (Input::IsKeyPressed(POLY_KEY_S))
-		{
-			m_CameraPosition.y -= m_CameraSpeed * ts;
-		}
-		if (Input::IsKeyPressed(POLY_KEY_A))
-		{
-			m_CameraPosition.x -= m_CameraSpeed * ts;
-		}
-		if (Input::IsKeyPressed(POLY_KEY_D))
-		{
-			m_CameraPosition.x += m_CameraSpeed * ts;
-		}
-
-		if (Input::IsKeyPressed(POLY_KEY_Q))
-		{
-			m_CameraRotaion += m_RotationSpeed * ts;
-		}
-		if (Input::IsKeyPressed(POLY_KEY_E))
-		{
-			m_CameraRotaion -= m_RotationSpeed * ts;
-		}
+		m_CameraController.OnEvent(event);
 	}
 
 private:
 	ShaderLibrary m_ShaderLibrary;
 	Ref<VertexArray> m_SquareVertexArray;
-	Ref<Shader> m_Shader;
-	OrtographicCamera m_Camera;
 
 	Ref<Texture2D> m_Texture;
-	Ref<Texture2D> m_TextureUser;
+	Ref<Texture2D> m_TextureUser;	
 
-	glm::vec3 m_CameraPosition = glm::vec3(0.0f);
-	float m_CameraRotaion = 0;
-	float m_CameraSpeed = 5.0f;
-	float m_RotationSpeed = 180.0f;
-	
+	OrthographicCameraController m_CameraController;
+
 	Timestep m_Ts = 0;
 
 	glm::vec3 m_SquareColor = { 0.8f, 0.2f, 0.3f };
