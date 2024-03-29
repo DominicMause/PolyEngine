@@ -14,13 +14,21 @@
 
 #include "PolyEngine/ImGui/ImGuiLayer.h"
 
-#include "PolyEngine/Renderer/Buffer.h"
+// -- Renderer ----------------------------------------------
 #include "PolyEngine/Renderer/Renderer.h"
+#include "PolyEngine/Renderer/Renderer2D.h"
 #include "PolyEngine/Renderer/RenderCommand.h"
+
+#include "PolyEngine/Renderer/Buffer.h"
 #include "PolyEngine/Renderer/Shader.h"
 #include "PolyEngine/Renderer/Texture.h"
 #include "PolyEngine/Renderer/VertexArray.h"
 
+#include "PolyEngine/Renderer/OrthographicCamera.h"
+// ----------------------------------------------------------
+
+// -- Events ------------------------------------------------
 #include "PolyEngine/Events/ApplicationEvent.h"
 #include "PolyEngine/Events/MouseEvent.h"
 #include "PolyEngine/Events/KeyEvent.h"
+// ----------------------------------------------------------

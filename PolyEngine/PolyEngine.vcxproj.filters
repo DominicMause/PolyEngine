@@ -1414,6 +1414,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Input\OrthographicCameraController.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\PolyEngine\Core\Application.cpp">
@@ -1489,5 +1490,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\PolyEngine\Input\OrthographicCameraController.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

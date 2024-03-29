@@ -177,6 +177,7 @@
     <ClInclude Include="src\PolyEngine\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\PolyEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\PolyEngine\Renderer\Renderer2D.h" />
     <ClInclude Include="src\PolyEngine\Renderer\RendererAPI.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Shader.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Texture.h" />
@@ -620,6 +621,7 @@
     <ClCompile Include="src\PolyEngine\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Shader.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Texture.cpp" />
