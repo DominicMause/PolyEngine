@@ -195,43 +195,58 @@ namespace PolyEngine
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::UploadUniformInt(std::string name, int value)
+	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
+	{
+		UploadUniformFloat3(name, value);
+	}
+
+	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4 & value)
+	{
+		UploadUniformFloat4(name, value);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4 & value)
+	{
+		UploadUniformMat4(name, value);
+	}
+
+	void OpenGLShader::UploadUniformInt(const std::string& name, int value)
 	{
 		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniform1i(position, value);
 	}
 
-	void OpenGLShader::UploadUniformFloat(std::string name, float value)
+	void OpenGLShader::UploadUniformFloat(const std::string& name, float value)
 	{
 		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniform1f(position, value);
 	}
 
-	void OpenGLShader::UploadUniformFloat2(std::string name, const glm::vec2& values)
+	void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& values)
 	{
 		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniform2f(position, values.x, values.y);
 	}
 
-	void OpenGLShader::UploadUniformFloat3(std::string name, const glm::vec3& values)
+	void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& values)
 	{
 		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniform3f(position, values.x, values.y, values.z);
 	}
 
-	void OpenGLShader::UploadUniformFloat4(std::string name, const glm::vec4& values)
+	void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& values)
 	{
 		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniform4f(position, values.x, values.y, values.z, values.w);
 	}
 
-	void OpenGLShader::UploadUniformMat3(std::string name, const glm::mat3& matrix)
+	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix)
 	{
 		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniformMatrix3fv(position, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-	void OpenGLShader::UploadUniformMat4(std::string name, const glm::mat4& matrix)
+	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
 	{
 		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(matrix));

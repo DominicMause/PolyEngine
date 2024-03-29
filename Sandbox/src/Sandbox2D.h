@@ -21,7 +21,9 @@ private:
 	Ref<VertexArray> m_VertexArray;
 	Ref<Shader> m_Shader;
 
-	int grid[2] = {2, 2};
+	int m_Grid[2] = {2, 2};
+	float m_Rotation = 0;
+	float m_Spacing = 1.11f;
 
 	glm::vec4 m_SquareColor = { 0.8f, 0.2f, 0.3f, 1.0f };
 };

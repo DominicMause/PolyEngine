@@ -29,11 +29,11 @@ void Sandbox2D::OnUpdate(Timestep ts)
 	Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 
-	for (int y = - grid[0] / 2; y < grid[0]/2; y++)
+	for (int y = -m_Grid[0] / 2; y < m_Grid[0]/2; y++)
 	{
-		for (int x = - grid[1] / 2; x < grid[1] / 2; x++)
+		for (int x = -m_Grid[1] / 2; x < m_Grid[1] / 2; x++)
 		{
-			Renderer2D::DrawQuad({ x * 1.11f, y * 1.11f }, { 1.0f, 1.0f }, m_SquareColor);
+			Renderer2D::DrawQuad({ x * m_Spacing, y * m_Spacing }, { 1.0f, 1.0f }, m_SquareColor, m_Rotation);
 		}
 	}
 
@@ -44,7 +44,9 @@ void Sandbox2D::OnImGuiRender()
 {
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
-	ImGui::DragInt2("Grid Size", grid, 2, 2, 20);
+	ImGui::SliderInt2("Grid Size", m_Grid, 2, 20);
+	ImGui::SliderFloat("Rotation", &m_Rotation, 0, 360);
+	ImGui::SliderFloat("Spacing", &m_Spacing, 0, 10);
 	ImGui::End();
 }
 
