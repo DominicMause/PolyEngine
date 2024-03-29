@@ -36,7 +36,7 @@ namespace PolyEngine
 		float m_CameraRotation = 0;
 
 		float m_CameraTranslationSpeed = 1.0f;
-		float m_CameraRotationSpeed = 1.0f;
+		float m_CameraRotationSpeed = 180.0f;
 	};
 
 }

@@ -80,7 +80,6 @@ project "PolyEngine"
 
 		defines
 		{
-			"PE_PLATFORM_WINDOWS",
 			"PE_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
@@ -131,11 +130,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		systemversion "latest"
-
-		defines
-		{
-			"PE_PLATFORM_WINDOWS"
-		}
 
 	filter "configurations:Debug"
 		defines "PE_DEBUG"

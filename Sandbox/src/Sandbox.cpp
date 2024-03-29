@@ -14,7 +14,7 @@ class ExampleLayer : public Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_CameraController(16.0f/9.0f)
+		: Layer("Example"), m_CameraController(16.0f/9.0f, true)
 	{
 		m_SquareVertexArray.reset(VertexArray::Create());
 		float verticesSquare[4 * 5] = {
