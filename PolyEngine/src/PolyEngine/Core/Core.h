@@ -6,7 +6,9 @@
 	/* Windows x64/x86 */
 	#ifdef _WIN64
 		/* Windows x64  */
-		#define PE_PLATFORM_WINDOWS
+		#ifndef PE_PLATFORM_WINDOWS
+			#define PE_PLATFORM_WINDOWS
+		#endif // !PE_PLATFORM_WINDOWS
 	#else
 		/* Windows x86 */
 		#error "x86 Builds are not supported!"
