@@ -6,28 +6,28 @@
 
 namespace PolyEngine
 {
-	VertexBuffer* VertexBuffer::Create(float* vertices, size_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, size_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return new OpenGLVertexBuffer(vertices, size);
+				return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 
 		PE_CORE_ASSERT(false, "Renderer not supported");
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, size_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, size_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return new OpenGLIndexBuffer(indices, (uint32_t)size);
+				return CreateRef<OpenGLIndexBuffer>(indices, (uint32_t)size);
 		}
 
 		PE_CORE_ASSERT(false, "Renderer not supported");
