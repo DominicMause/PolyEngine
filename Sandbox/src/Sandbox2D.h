@@ -1,5 +1,7 @@
 #pragma once
 #include "PolyEngine.h"
+#include "Entity.h"
+#include "Player.h"
 
 using namespace PolyEngine;
 
@@ -16,14 +18,17 @@ public:
 	virtual void OnImGuiRender() override;
 	void OnEvent(Event& event) override;
 private:
-	OrthographicCameraController m_CameraController;
-
+	bool OnWindowResized(WindowResizeEvent& e);
+private:
+	//OrthographicCameraController m_CameraController;
+	OrthographicCamera m_Camera;
 	Ref<VertexArray> m_VertexArray;
 	Ref<Shader> m_Shader;
 
-	int m_Grid[2] = {2, 2};
-	float m_Rotation = 0;
-	float m_Spacing = 1.11f;
+	Ref<Texture2D> m_Texture;
+	Ref<Texture2D> m_TextureBG;
+	Ref<Texture2D> m_TexturePlayer;
 
-	glm::vec4 m_SquareColor = { 0.8f, 0.2f, 0.3f, 1.0f };
+	std::vector<Entity> m_Entities;
+	Player m_Player;
 };

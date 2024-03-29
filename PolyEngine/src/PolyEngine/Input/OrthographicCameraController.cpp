@@ -75,6 +75,7 @@ namespace PolyEngine
 		m_CameraTranslationSpeed = m_ZoomLevel;
 		return false;
 	}
+
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
