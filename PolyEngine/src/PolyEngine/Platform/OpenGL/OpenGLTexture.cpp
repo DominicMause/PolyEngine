@@ -1,7 +1,7 @@
 #include "pepch.h"
 #include "OpenGLTexture.h"
 
-#include "stb_image.h"
+#include <stb_image.h>
 
 namespace PolyEngine
 {

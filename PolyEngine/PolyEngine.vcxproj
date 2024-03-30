@@ -618,6 +618,7 @@
     <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\PolyEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Renderer.cpp" />

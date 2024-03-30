@@ -1491,5 +1491,6 @@
     </ClCompile>
     <ClCompile Include="src\PolyEngine\Input\OrthographicCameraController.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\PolyEngine\Renderer\GraphicsContext.cpp" />
   </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@ namespace PolyEngine
 		case RendererAPI::API::None:
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLShader>(filepath);
+			return CreateRef<OpenGLShader>(filepath);
 		}
 
 		PE_CORE_ASSERT(false, "Renderer not supported");
@@ -31,7 +31,7 @@ namespace PolyEngine
 		case RendererAPI::API::None:
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+			return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
 		PE_CORE_ASSERT(false, "Renderer not supported");

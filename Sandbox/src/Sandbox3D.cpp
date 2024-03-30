@@ -1,7 +1,5 @@
 #include "Sandbox3D.h"
 
-#include "PolyEngine/Platform/OpenGL/OpenGLShader.h"
-
 #include <imgui/imgui.h>
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -40,8 +38,8 @@ Sandbox3D::Sandbox3D()
 	m_Texture = Texture2D::Create("assets/textures/container_diffuse.png");
 	m_TextureUser = Texture2D::Create("assets/textures/user.png");
 
-	std::dynamic_pointer_cast<OpenGLShader>(textureShader)->Bind();
-	std::dynamic_pointer_cast<OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+	textureShader->Bind();
+	textureShader->SetInt("u_Texture", 0);
 }
 
 void Sandbox3D::OnAttach()
@@ -69,8 +67,8 @@ void Sandbox3D::OnUpdate(Timestep ts)
 	glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 	auto flatShader = m_ShaderLibrary.Get("FlatColor");
-	std::dynamic_pointer_cast<OpenGLShader>(flatShader)->Bind();
-	std::dynamic_pointer_cast<OpenGLShader>(flatShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+	flatShader->Bind();
+	flatShader->SetFloat3("u_Color", m_SquareColor);
 
 	m_TextureUser->Bind();
 	for (int y = -10; y <= 10; y++)
