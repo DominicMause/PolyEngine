@@ -45,3 +45,4 @@ bin-int/
 
 
 imgui.ini
+*.log
