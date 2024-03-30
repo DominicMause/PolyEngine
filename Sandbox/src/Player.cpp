@@ -2,57 +2,70 @@
 
 Player::Player(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	: Entity(position, size, texture)
-{}
-
-void Player::Update(Timestep time, std::vector<Entity>& colliders)
 {
-	bool wasGrounded = m_IsGrounded;
-	m_IsGrounded = false;
+	for (int i = 0; i < 8; i++)
+	{
+		m_Coords.push_back(glm::vec2(-8.5f, 8.5f - i * 2.428571428571429f));
+		m_Coords.push_back(glm::vec2( 8.5f, 8.5f - i * 2.428571428571429f));
+	}
+	m_IsAutoMode = true;
+}
+
+void Player::Update(Timestep time)
+{
 	glm::vec2 velocity = { 0,0 };
 
 	if (Input::IsKeyPressed(POLY_KEY_A))
 	{
 		velocity.x -= m_Speed * time;
+		m_IsAutoMode = false;
 	}
 	if (Input::IsKeyPressed(POLY_KEY_D))
 	{
 		velocity.x += m_Speed * time;
+		m_IsAutoMode = false;
+	}
+	if (Input::IsKeyPressed(POLY_KEY_W))
+	{
+		velocity.y += m_Speed * time;
+		m_IsAutoMode = false;
+	}
+	if (Input::IsKeyPressed(POLY_KEY_S))
+	{
+		velocity.y -= m_Speed * time;
+		m_IsAutoMode = false;
+	}
+	if (Input::IsKeyPressed(POLY_KEY_ENTER))
+	{
+		m_IsAutoMode = true;
 	}
 
-	if (wasGrounded && Input::IsKeyPressed(POLY_KEY_SPACE))
+	if (m_IsAutoMode && m_Coords.size())
 	{
-		velocity.y += 40 * time;
-	}
+		glm::vec2 direction = glm::normalize(m_Coords.at(m_CurrentDestination) - m_Position);
+		velocity = direction * glm::vec2(time * m_Speed);
 
-	if (!wasGrounded)
-	{
-		velocity.y -= 3.0f * time;
-	}
-
-	for (auto& collider : colliders)
-	{
-		glm::vec2 pos = collider.GetPosition();
-		glm::vec2 size = collider.GetSize();
-		if (
-			m_Position.x + m_Size.x / 2 + 0.1f >= pos.x + size.x / 2 &&
-			m_Position.x - m_Size.x / 2 - 0.1f <= pos.x + size.x / 2 &&
-			m_Position.y + m_Size.y / 2 + 0.1f >= pos.y - size.y / 2 &&
-			m_Position.y - m_Size.y / 2 - 0.1f <= pos.y + size.y / 2
-			)
+		if (glm::distance(m_Position, m_Coords.at(m_CurrentDestination)) <= m_Radius)
 		{
-			if (velocity.y <= 0)
+			if (m_CurrentDestination + 1 == m_Coords.size())
 			{
-				m_Position.y = pos.y + size.y / 2 + m_Size.y / 2;
-				velocity.y = 0;
-				m_IsGrounded = true;
+				m_CurrentDestination = 0;
 			}
-			else if (velocity.y > 0)
+			else
 			{
-				m_Position.y = pos.y - size.y / 2 - m_Size.y / 2 - 0.01f; // Kleinen Offset hinzufügen
-				velocity.y = 0;
+				m_CurrentDestination++;
 			}
-			
 		}
 	}
+
 	m_Position += velocity;
+}
+
+bool Player::OnKeyPressed(KeyPressedEvent& e)
+{
+	if (!e.GetRepeatCount() && e.GetKeyCode() == POLY_KEY_E)
+	{
+		m_Coords.push_back(m_Position);
+	}
+	return false;
 }

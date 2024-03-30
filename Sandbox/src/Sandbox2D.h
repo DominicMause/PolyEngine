@@ -19,6 +19,7 @@ public:
 	void OnEvent(Event& event) override;
 private:
 	bool OnWindowResized(WindowResizeEvent& e);
+	bool OnKeyPressed(KeyPressedEvent& e);
 private:
 	//OrthographicCameraController m_CameraController;
 	OrthographicCamera m_Camera;

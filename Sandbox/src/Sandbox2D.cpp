@@ -7,10 +7,10 @@
 
 Sandbox2D::Sandbox2D()
 	:Layer("Sandbox2d"),
-	m_Camera(-(16.0f / 9.0f) * 3, (16.0f / 9.0f) * 3, -3, 3)
+	m_Camera(-(16.0f / 9.0f) * 5, (16.0f / 9.0f) * 5, -5, 5)
 {
-	m_TexturePlayer = Texture2D::Create("assets/textures/user.png");
-	m_Player = Player({ 0.0f , 10.0f }, { 1.0f, 1.0f }, m_TexturePlayer);
+	m_TexturePlayer = Texture2D::Create("assets/textures/dick.png");
+	m_Player = Player({ 0.0f , 0.0f }, { 1.0f, 1.0f }, m_TexturePlayer);
 }
 
 void Sandbox2D::OnAttach()
@@ -19,9 +19,15 @@ void Sandbox2D::OnAttach()
 	m_Texture = Texture2D::Create("assets/textures/container_diffuse.png");
 	m_TextureBG = Texture2D::Create("assets/textures/Checkerboard.png");
 
-	for (int x = -10; x < 10; x++)
+	for (int y = -10; y <= 10; y++)
 	{
-		m_Entities.push_back(Entity({ x, -2 }, { 1.0f, 1.0f }, m_Texture));
+		for (int x = -10; x <= 10; x++)
+		{
+			if (y == -10 || y == 10 || x == -10 || x == 10)
+			{
+				m_Entities.push_back(Entity({ x, y }, { 1.0f, 1.0f }, m_Texture));
+			}
+		}
 	}
 }
 
@@ -32,7 +38,7 @@ void Sandbox2D::OnDetach()
 void Sandbox2D::OnUpdate(Timestep ts)
 {
 	// Update
-	m_Player.Update(ts, m_Entities); 
+	m_Player.Update(ts); 
 	glm::vec2 pos = m_Player.GetPosition();
 	m_Camera.SetPosition({pos.x, pos.y, 0});
 	
@@ -42,13 +48,20 @@ void Sandbox2D::OnUpdate(Timestep ts)
 
 	Renderer2D::BeginScene(m_Camera);
 
+	Renderer2D::DrawQuad({ 0.0f,0.0f,-0.1f }, { 19.0f,19.0f }, m_TextureBG);
+
 	for (auto& e : m_Entities)
 	{
 		Renderer2D::DrawQuad(e.GetPosition(), e.GetSize(), e.GetTexture());
 	}
 
+	for (auto& e : m_Player.GetCoords())
+	{
+		Renderer2D::DrawQuad(e, { 0.1f,0.1f }, { 0.8f,0.3f,0.2f,1.0f });
+	}
+
+	Renderer2D::DrawQuad(m_Player.GetPosition(), { m_Player.GetRadius() ,m_Player.GetRadius() }, {0.3f,0.8f,0.2f,1.0f});
 	Renderer2D::DrawQuad(m_Player.GetPosition(), m_Player.GetSize(), m_Player.GetTexture());
-	Renderer2D::DrawQuad({ 0.0f,0.0f,- 0.1f }, { 10.0f,10.0f }, m_TextureBG);
 	
 	Renderer2D::EndScene();
 }
@@ -64,6 +77,7 @@ void Sandbox2D::OnEvent(Event & event)
 {
 	EventDispatcher dispatcher(event);
 	dispatcher.Dispatch<WindowResizeEvent>(PE_BIND_EVENT_FN(Sandbox2D::OnWindowResized));
+	dispatcher.Dispatch<KeyPressedEvent>(PE_BIND_EVENT_FN(Sandbox2D::OnKeyPressed));
 	//m_CameraController.OnEvent(event);
 }
 
@@ -71,5 +85,11 @@ bool Sandbox2D::OnWindowResized(WindowResizeEvent& e)
 {
 	float aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 	m_Camera.SetProjection(-aspectRatio * 3, aspectRatio * 3, -3, 3);
+	return false;
+}
+
+bool Sandbox2D::OnKeyPressed(KeyPressedEvent& e)
+{
+	m_Player.OnKeyPressed(e);
 	return false;
 }
