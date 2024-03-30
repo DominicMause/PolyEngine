@@ -20,6 +20,7 @@ namespace PolyEngine
 
 	void Renderer2D::Init()
 	{
+		PE_PROFILE_FUNCTION();
 		s_Data = new Renderer2DData();
 		s_Data->QuadVertexArray = VertexArray::Create();
 		float verticesSquare[5 * 4] = {
@@ -55,18 +56,20 @@ namespace PolyEngine
 
 	void Renderer2D::Shutdown()
 	{
+		PE_PROFILE_FUNCTION();
 		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera & camera)
 	{
+		PE_PROFILE_FUNCTION();
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
 	{
-
+		PE_PROFILE_FUNCTION();
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position,const glm::vec2& size, const glm::vec4& color, const float rotation)
@@ -95,6 +98,7 @@ namespace PolyEngine
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color, const float rotation)
 	{
+		PE_PROFILE_FUNCTION();
 		texture->Bind();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)

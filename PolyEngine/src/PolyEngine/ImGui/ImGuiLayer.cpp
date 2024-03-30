@@ -21,6 +21,9 @@ namespace PolyEngine
 
 	void ImGuiLayer::OnAttach()
 	{
+		PE_PROFILE_FUNCTION();
+
+		// Setup
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -50,6 +53,7 @@ namespace PolyEngine
 
 	void ImGuiLayer::OnDetach()
 	{
+		PE_PROFILE_FUNCTION();
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
@@ -57,18 +61,15 @@ namespace PolyEngine
 
 	void ImGuiLayer::Begin()
 	{
+		PE_PROFILE_FUNCTION();
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 	}
 
-	void ImGuiLayer::OnImGuiRender()
-	{
-
-	}
-
 	void ImGuiLayer::End()
 	{
+		PE_PROFILE_FUNCTION();
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 

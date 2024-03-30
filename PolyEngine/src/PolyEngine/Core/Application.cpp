@@ -13,6 +13,7 @@ namespace PolyEngine {
 
 	Application::Application() 
 	{
+		PE_PROFILE_FUNCTION();
 		PE_CORE_ASSERT(!s_Instance, "Application already exsits!");
 		s_Instance = this;
 
@@ -27,38 +28,49 @@ namespace PolyEngine {
 
 	Application::~Application()
 	{
+		PE_PROFILE_FUNCTION();
 		Renderer::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer)
 	{
+		PE_PROFILE_FUNCTION();
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
+		PE_PROFILE_FUNCTION();
 		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
 	}
 
 	void Application::Run()
 	{
+		PE_PROFILE_FUNCTION();
 		while (m_Running)
-		{			
+		{	
+			PE_PROFILE_SCOPE("Run Loop");
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized)
 			{
+				PE_PROFILE_SCOPE("LayerStack OnUpdate");
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate(timestep);
 				
 			}
 
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
 			{
-				layer->OnImGuiRender();
+				PE_PROFILE_SCOPE("LayerStack OnImGuiRender");
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnImGuiRender();
+				}
 			}
 			m_ImGuiLayer->End();
 
@@ -67,6 +79,7 @@ namespace PolyEngine {
 	}
 	void Application::OnEvent(Event& e)
 	{
+		PE_PROFILE_FUNCTION();
 		EventDispatcher dispatcher(e);
 
 		dispatcher.Dispatch<WindowCloseEvent>(PE_BIND_EVENT_FN(Application::OnWindowClose));
@@ -88,6 +101,7 @@ namespace PolyEngine {
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		PE_PROFILE_FUNCTION();
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;

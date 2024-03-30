@@ -21,16 +21,19 @@ namespace PolyEngine
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		PE_PROFILE_FUNCTION();
 		Init(props);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
+		PE_PROFILE_FUNCTION();
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		PE_PROFILE_FUNCTION();
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -39,16 +42,18 @@ namespace PolyEngine
 
 		if (!s_GLFWInitialized)
 		{
+			PE_PROFILE_SCOPE("glfwInit");
 			int success = glfwInit();
 			PE_CORE_ASSERT(success, "Could not intialize GLFW!");
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
-
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		m_Context = GraphicsContext::Create(m_Window);
-
+		{
+			PE_PROFILE_SCOPE("glfwCreateWindow");
+			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			m_Context = GraphicsContext::Create(m_Window);
+		}
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -142,17 +147,20 @@ namespace PolyEngine
 
 	void WindowsWindow::Shutdown()
 	{
+		PE_PROFILE_FUNCTION();
 		glfwDestroyWindow(m_Window);
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		PE_PROFILE_FUNCTION();
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		PE_PROFILE_FUNCTION();
 		if (enabled)
 			glfwSwapInterval(1);
 		else

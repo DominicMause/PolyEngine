@@ -17,12 +17,10 @@ public:
 	void OnUpdate(Timestep ts) override;
 	virtual void OnImGuiRender() override;
 	void OnEvent(Event& event) override;
-private:
-	bool OnWindowResized(WindowResizeEvent& e);
-	bool OnKeyPressed(KeyPressedEvent& e);
+
 private:
 	//OrthographicCameraController m_CameraController;
-	OrthographicCamera m_Camera;
+	//OrthographicCamera m_Camera;
 	Ref<VertexArray> m_VertexArray;
 	Ref<Shader> m_Shader;
 
@@ -31,5 +29,5 @@ private:
 	Ref<Texture2D> m_TexturePlayer;
 
 	std::vector<Entity> m_Entities;
-	Ref<Player> m_Player;
+	Player m_Player;
 };

@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture)
-	: Entity(position, size, texture)
+Player::Player(const glm::vec2& position, const glm::vec2& size)
+	: Entity(position, size), m_Camera(-(16.0f / 9.0f) * m_ZoomLevel, (16.0f / 9.0f)* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel)
 {
 	for (int i = 0; i < 8; i++)
 	{
@@ -17,22 +17,22 @@ void Player::Update(Timestep time)
 
 	if (Input::IsKeyPressed(POLY_KEY_A))
 	{
-		velocity.x -= m_Speed * time;
+		velocity.x -= 1;
 		m_IsAutoMode = false;
 	}
 	if (Input::IsKeyPressed(POLY_KEY_D))
 	{
-		velocity.x += m_Speed * time;
+		velocity.x += 1;
 		m_IsAutoMode = false;
 	}
 	if (Input::IsKeyPressed(POLY_KEY_W))
 	{
-		velocity.y += m_Speed * time;
+		velocity.y += 1;
 		m_IsAutoMode = false;
 	}
 	if (Input::IsKeyPressed(POLY_KEY_S))
 	{
-		velocity.y -= m_Speed * time;
+		velocity.y -= 1;
 		m_IsAutoMode = false;
 	}
 	if (Input::IsKeyPressed(POLY_KEY_ENTER))
@@ -42,8 +42,7 @@ void Player::Update(Timestep time)
 
 	if (m_IsAutoMode && m_Coords.size())
 	{
-		glm::vec2 direction = glm::normalize(m_Coords.at(m_CurrentDestination) - m_Position);
-		velocity = direction * glm::vec2(time * m_Speed);
+		velocity = glm::normalize(m_Coords.at(m_CurrentDestination) - m_Position);
 
 		if (glm::distance(m_Position, m_Coords.at(m_CurrentDestination)) <= m_Radius)
 		{
@@ -57,8 +56,19 @@ void Player::Update(Timestep time)
 			}
 		}
 	}
+	if (velocity.x != 0 || velocity.y != 0)
+	{
+		m_Position += glm::normalize(velocity) * glm::vec2(m_Speed * time);
+	}
 
-	m_Position += velocity;
+	m_Camera.SetPosition(glm::vec3(m_Position,0));
+}
+
+void Player::OnEvent(Event& e)
+{
+	EventDispatcher dispatcher(e);
+	dispatcher.Dispatch<WindowResizeEvent>(PE_BIND_EVENT_FN(Player::OnWindowResize));
+	dispatcher.Dispatch<KeyPressedEvent>(PE_BIND_EVENT_FN(Player::OnKeyPressed));
 }
 
 bool Player::OnKeyPressed(KeyPressedEvent& e)
@@ -67,5 +77,12 @@ bool Player::OnKeyPressed(KeyPressedEvent& e)
 	{
 		m_Coords.push_back(m_Position);
 	}
+	return false;
+}
+
+bool Player::OnWindowResize(WindowResizeEvent& e)
+{
+	float aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
+	m_Camera.SetProjection(-aspectRatio * m_ZoomLevel, aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 	return false;
 }
