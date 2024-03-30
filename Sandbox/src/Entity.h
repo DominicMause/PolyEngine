@@ -7,7 +7,6 @@ using namespace PolyEngine;
 class Entity
 {
 public:
-	Entity() {}
 	Entity(const glm::vec2& position,const glm::vec2& size, const Ref<Texture2D>& texture);
 	~Entity();
 
@@ -17,7 +16,7 @@ public:
 
 	void Update(Timestep time);
 protected:
-	glm::vec2 m_Position;
-	glm::vec2 m_Size;
+	glm::vec2 m_Position = { 0, 0 };
+	glm::vec2 m_Size = { 1, 1 };
 	Ref<Texture2D> m_Texture;
 };

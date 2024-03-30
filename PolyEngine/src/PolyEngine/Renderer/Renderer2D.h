@@ -14,9 +14,11 @@ namespace PolyEngine
 		static void EndScene();
 
 		// Primitives
-		static void DrawQuad(const glm::vec2& position,const glm::vec2& size, const glm::vec4& color, const float rotation = 0);
-		static void DrawQuad(const glm::vec3& position,const glm::vec2& size, const glm::vec4& color, const float rotation = 0);
-		static void DrawQuad(const glm::vec2& position,const glm::vec2& size, const Ref<Texture2D>& texture, const float rotation = 0);
-		static void DrawQuad(const glm::vec3& position,const glm::vec2& size, const Ref<Texture2D>& texture, const float rotation = 0);
+		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const float rotation = 0);
+		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const float rotation = 0);
+		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const float rotation = 0);
+		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const float rotation = 0);
+		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color, const float rotation = 0);
+		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color, const float rotation = 0);
 	};
 }

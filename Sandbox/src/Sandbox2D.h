@@ -31,5 +31,5 @@ private:
 	Ref<Texture2D> m_TexturePlayer;
 
 	std::vector<Entity> m_Entities;
-	Player m_Player;
+	Ref<Player> m_Player;
 };
