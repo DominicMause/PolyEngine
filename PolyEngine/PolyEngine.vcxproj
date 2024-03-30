@@ -604,6 +604,8 @@
     <ClCompile Include="src\PolyEngine\Core\Layer.cpp" />
     <ClCompile Include="src\PolyEngine\Core\LayerStack.cpp" />
     <ClCompile Include="src\PolyEngine\Core\Log.cpp" />
+    <ClCompile Include="src\PolyEngine\Core\Window.cpp" />
+    <ClCompile Include="src\PolyEngine\Input\Input.cpp" />
     <ClCompile Include="src\PolyEngine\Input\OrthographicCameraController.cpp" />
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\PolyEngine\ImGui\ImGuiLayer.cpp" />

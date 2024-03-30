@@ -7,13 +7,13 @@
 
 #include <thread>
 
-namespace Hazel
+namespace PolyEngine
 {
 	struct ProfileResult
 	{
 		std::string Name;
 		long long Start, End;
-		size_t ThreadID;
+		std::thread::id ThreadID;
 	};
 
 	struct InstrumentationSession
@@ -24,54 +24,82 @@ namespace Hazel
 	class Instrumentor
 	{
 	private:
+		std::mutex m_Mutex;
 		InstrumentationSession* m_CurrentSession;
 		std::ofstream m_OutputStream;
-		int m_ProfileCount;
 	public:
 		Instrumentor()
-			: m_CurrentSession(nullptr), m_ProfileCount(0)
+			: m_CurrentSession(nullptr)
 		{}
 
 		void BeginSession(const std::string& name, const std::string& filepath = "results.json")
 		{
+			std::lock_guard lock(m_Mutex);
+			if (m_CurrentSession)
+			{
+				if (Log::GetCoreLogger())
+				{
+					PE_CORE_ERROR("Instrumentor::BeginSession('{0}') when session '{1}' already open.", name, m_CurrentSession->Name);
+				}
+				InternalEndSession();
+			}
 			m_OutputStream.open(filepath);
-			WriteHeader();
-			m_CurrentSession = new InstrumentationSession{ name };
+			if (m_OutputStream.is_open())
+			{
+				m_CurrentSession = new InstrumentationSession{ name };
+				WriteHeader();
+			}
+			else
+			{
+				if (Log::GetCoreLogger())
+				{
+					PE_CORE_ERROR("Instrumentor could not open results file '{0}'.", filepath);
+				}
+			}
 		}
 
 		void EndSession()
 		{
-			WriteFooter();
-			m_OutputStream.close();
-			delete m_CurrentSession;
-			m_CurrentSession = nullptr;
-			m_ProfileCount = 0;
+			std::lock_guard lock(m_Mutex);
+			InternalEndSession();
 		}
 
 		void WriteProfile(const ProfileResult& result)
 		{
-			if (m_ProfileCount++ > 0)
-				m_OutputStream << ",";
+
+			std::stringstream json;
 
 			std::string name = result.Name;
 			std::replace(name.begin(), name.end(), '"', '\'');
 
-			m_OutputStream << "{";
-			m_OutputStream << "\"cat\":\"function\",";
-			m_OutputStream << "\"dur\":" << (result.End - result.Start) << ',';
-			m_OutputStream << "\"name\":\"" << name << "\",";
-			m_OutputStream << "\"ph\":\"X\",";
-			m_OutputStream << "\"pid\":0,";
-			m_OutputStream << "\"tid\":" << result.ThreadID << ",";
-			m_OutputStream << "\"ts\":" << result.Start;
-			m_OutputStream << "}";
+			json << "{";
+			json << "\"cat\":\"function\",";
+			json << "\"dur\":" << (result.End - result.Start) << ',';
+			json << "\"name\":\"" << name << "\",";
+			json << "\"ph\":\"X\",";
+			json << "\"pid\":0,";
+			json << "\"tid\":" << result.ThreadID << ",";
+			json << "\"ts\":" << result.Start;
+			json << "}";
 
-			m_OutputStream.flush();
+			std::lock_guard lock(m_Mutex);
+			if (m_CurrentSession)
+			{
+				m_OutputStream << json.str();
+				m_OutputStream.flush();
+			}
 		}
 
+		static Instrumentor& Get()
+		{
+			static Instrumentor instance;
+			return instance;
+		}
+
+	private:
 		void WriteHeader()
 		{
-			m_OutputStream << "{\"otherData\": {},\"traceEvents\":[";
+			m_OutputStream << "{\"otherData\": {},\"traceEvents\":[{}";
 			m_OutputStream.flush();
 		}
 
@@ -81,10 +109,15 @@ namespace Hazel
 			m_OutputStream.flush();
 		}
 
-		static Instrumentor& Get()
+		void InternalEndSession()
 		{
-			static Instrumentor instance;
-			return instance;
+			if (m_CurrentSession)
+			{
+				WriteFooter();
+				m_OutputStream.close();
+				delete m_CurrentSession;
+				m_CurrentSession = nullptr;
+			}
 		}
 	};
 
@@ -110,8 +143,7 @@ namespace Hazel
 			long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
 			long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
 
-			size_t threadID = std::hash<std::thread::id>{}(std::this_thread::get_id());
-			Instrumentor::Get().WriteProfile({ m_Name, start, end, threadID });
+			Instrumentor::Get().WriteProfile({ m_Name, start, end, std::this_thread::get_id() });
 
 			m_Stopped = true;
 		}
@@ -141,9 +173,9 @@ namespace Hazel
 	#else
 		#define PE_FUNC_SIG "PE_FUNC_SIG unknown!"
 	#endif
-#define PE_PROFILE_BEGIN_SESSION(name, filepath) ::Hazel::Instrumentor::Get().BeginSession(name, filepath)
-#define PE_PROFILE_END_SESSION() ::Hazel::Instrumentor::Get().EndSession()
-#define PE_PROFILE_SCOPE(name) ::Hazel::InstrumentationTimer timer##__LINE__(name);
+#define PE_PROFILE_BEGIN_SESSION(name, filepath) ::PolyEngine::Instrumentor::Get().BeginSession(name, filepath)
+#define PE_PROFILE_END_SESSION() ::PolyEngine::Instrumentor::Get().EndSession()
+#define PE_PROFILE_SCOPE(name) ::PolyEngine::InstrumentationTimer timer##__LINE__(name);
 #define PE_PROFILE_FUNCTION() PE_PROFILE_SCOPE(PE_FUNC_SIG)
 #else
 #define PE_PROFILE_BEGIN_SESSION(name, filepath)

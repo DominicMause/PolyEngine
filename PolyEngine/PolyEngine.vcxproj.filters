@@ -1493,5 +1493,7 @@
     <ClCompile Include="src\PolyEngine\Input\OrthographicCameraController.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\PolyEngine\Renderer\GraphicsContext.cpp" />
+    <ClCompile Include="src\PolyEngine\Input\Input.cpp" />
+    <ClCompile Include="src\PolyEngine\Core\Window.cpp" />
   </ItemGroup>
 </Project>
