@@ -1415,6 +1415,7 @@
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Input\OrthographicCameraController.h" />
     <ClInclude Include="src\PolyEngine\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\PolyEngine\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\PolyEngine\Core\Application.cpp">

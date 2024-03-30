@@ -3,7 +3,7 @@
 #include <imgui/imgui.h>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "PolyEngine/Platform/OpenGL/OpenGLShader.h"
+
 
 Sandbox2D::Sandbox2D()
 	:Layer("Sandbox2d"),
@@ -37,35 +37,42 @@ void Sandbox2D::OnDetach()
 
 void Sandbox2D::OnUpdate(Timestep ts)
 {
+	PE_PROFILE_FUNCTION();
+
 	// Update
-	m_Player->Update(ts); 
-	glm::vec2 pos = m_Player->GetPosition();
-	m_Camera.SetPosition({pos.x, pos.y, 0});
-	
+	{
+		PE_PROFILE_SCOPE("Update")
+		m_Player->Update(ts);
+		glm::vec2 pos = m_Player->GetPosition();
+		m_Camera.SetPosition({ pos.x, pos.y, 0 });
+	}
 	// Render
-	RenderCommand::SetClearColor({ 0.1f, 0.075f, 0.075f, 1.0f });
-	RenderCommand::Clear();
-
-	Renderer2D::BeginScene(m_Camera);
-
-	Renderer2D::DrawQuad({ 0.0f,0.0f,-0.1f }, { 19.0f,19.0f }, m_TextureBG);
-
-	for (auto& e : m_Entities)
 	{
-		Renderer2D::DrawQuad(e.GetPosition(), e.GetSize(), e.GetTexture());
+		PE_PROFILE_SCOPE("Render")
+		RenderCommand::SetClearColor({ 0.1f, 0.075f, 0.075f, 1.0f });
+		RenderCommand::Clear();
+
+		Renderer2D::BeginScene(m_Camera);
+
+		Renderer2D::DrawQuad({ 0.0f,0.0f,-0.1f }, { 19.0f,19.0f }, m_TextureBG);
+
+		for (auto& e : m_Entities)
+		{
+			Renderer2D::DrawQuad(e.GetPosition(), e.GetSize(), e.GetTexture());
+		}
+
+		for (auto& e : m_Player->GetCoords())
+		{
+			Renderer2D::DrawQuad(e, { 0.1f,0.1f }, { 0.8f,0.3f,0.2f,1.0f });
+		}
+
+		Renderer2D::DrawQuad(glm::vec3(0), glm::vec2(1), { 0.8, 0.2, 0.2, 1.0 });
+		Renderer2D::DrawQuad(m_Player->GetPosition(), { m_Player->GetRadius() ,m_Player->GetRadius() }, { 0.3f,0.8f,0.2f,1.0f });
+		Renderer2D::DrawQuad(m_Player->GetPosition(), m_Player->GetSize(), m_Player->GetTexture(), { 0.3f,0.4f,0.5f,0.75f });
+
+
+		Renderer2D::EndScene();
 	}
-
-	for (auto& e : m_Player->GetCoords())
-	{
-		Renderer2D::DrawQuad(e, { 0.1f,0.1f }, { 0.8f,0.3f,0.2f,1.0f });
-	}
-
-	Renderer2D::DrawQuad(glm::vec3(0), glm::vec2(1), { 0.8, 0.2, 0.2, 1.0 });
-	Renderer2D::DrawQuad(m_Player->GetPosition(), { m_Player->GetRadius() ,m_Player->GetRadius() }, { 0.3f,0.8f,0.2f,1.0f });
-	Renderer2D::DrawQuad(m_Player->GetPosition(), m_Player->GetSize(), m_Player->GetTexture(), {0.3f,0.4f,0.5f,0.75f});
-
-	
-	Renderer2D::EndScene();
 }
 
 void Sandbox2D::OnImGuiRender()

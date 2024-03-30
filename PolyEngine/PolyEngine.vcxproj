@@ -83,7 +83,6 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
-      <AdditionalOptions>-warnAsMessage %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -108,7 +107,6 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
-      <AdditionalOptions>-warnAsMessage %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,7 +132,6 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
-      <AdditionalOptions>-warnAsMessage %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -155,6 +152,7 @@
     <ClInclude Include="src\PolyEngine\Core\Log.h" />
     <ClInclude Include="src\PolyEngine\Core\Timestep.h" />
     <ClInclude Include="src\PolyEngine\Core\Window.h" />
+    <ClInclude Include="src\PolyEngine\Debug\Instrumentor.h" />
     <ClInclude Include="src\PolyEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\PolyEngine\Events\Event.h" />
     <ClInclude Include="src\PolyEngine\Events\KeyEvent.h" />
