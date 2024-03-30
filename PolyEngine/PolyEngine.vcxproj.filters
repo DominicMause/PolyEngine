@@ -105,7 +105,7 @@
     <ClInclude Include="src\PolyEngine\Input\KeyCodes.h">
       <Filter>src\PolyEngine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="src\PolyEngine\Input\MouseButtonCodes.h">
+    <ClInclude Include="src\PolyEngine\Input\MouseCodes.h">
       <Filter>src\PolyEngine\Input</Filter>
     </ClInclude>
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h">

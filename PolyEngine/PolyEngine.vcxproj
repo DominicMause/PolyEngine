@@ -160,7 +160,7 @@
     <ClInclude Include="src\PolyEngine\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\PolyEngine\Input\Input.h" />
     <ClInclude Include="src\PolyEngine\Input\KeyCodes.h" />
-    <ClInclude Include="src\PolyEngine\Input\MouseButtonCodes.h" />
+    <ClInclude Include="src\PolyEngine\Input\MouseCodes.h" />
     <ClInclude Include="src\PolyEngine\Input\OrthographicCameraController.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\PolyEngine\Platform\OpenGL\OpenGLContext.h" />

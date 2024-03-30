@@ -9,7 +9,7 @@
 
 #include "PolyEngine/Input/Input.h"
 #include "PolyEngine/Input/KeyCodes.h"
-#include "PolyEngine/Input/MouseButtonCodes.h"
+#include "PolyEngine/Input/MouseCodes.h"
 #include "PolyEngine/Input/OrthographicCameraController.h"
 
 #include "PolyEngine/ImGui/ImGuiLayer.h"

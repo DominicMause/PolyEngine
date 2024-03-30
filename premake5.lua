@@ -1,5 +1,5 @@
 workspace "PolyEngine"
-	architecture "x64"
+	architecture "x86__64"
 	startproject "Sandbox"
 
 	configurations

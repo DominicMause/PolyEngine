@@ -124,10 +124,27 @@ namespace Hazel
 
 #define PE_PROFILE 0
 #if PE_PROFILE
+	#if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600)) || defined(__ghs__)
+		#define PE_FUNC_SIG __PRETTY_FUNCTION__
+	#elif defined(__DMC__) && (__DMC__ >= 0x810)
+		#define PE_FUNC_SIG __PRETTY_FUNCTION__
+	#elif defined(__FUNCSIG__)
+		#define PE_FUNC_SIG __FUNCSIG__
+	#elif (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 600)) || (defined(__IBMCPP__) && (__IBMCPP__ >= 500))
+		#define PE_FUNC_SIG __FUNCTION__
+	#elif defined(__BORLANDC__) && (__BORLANDC__ >= 0x550)
+		#define PE_FUNC_SIG __FUNC__
+	#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901)
+		#define PE_FUNC_SIG __func__
+	#elif defined(__cplusplus) && (__cplusplus >= 201103)
+		#define PE_FUNC_SIG __func__
+	#else
+		#define PE_FUNC_SIG "PE_FUNC_SIG unknown!"
+	#endif
 #define PE_PROFILE_BEGIN_SESSION(name, filepath) ::Hazel::Instrumentor::Get().BeginSession(name, filepath)
 #define PE_PROFILE_END_SESSION() ::Hazel::Instrumentor::Get().EndSession()
 #define PE_PROFILE_SCOPE(name) ::Hazel::InstrumentationTimer timer##__LINE__(name);
-#define PE_PROFILE_FUNCTION() PE_PROFILE_SCOPE(__FUNCSIG__)
+#define PE_PROFILE_FUNCTION() PE_PROFILE_SCOPE(PE_FUNC_SIG)
 #else
 #define PE_PROFILE_BEGIN_SESSION(name, filepath)
 #define PE_PROFILE_END_SESSION()
