@@ -10,6 +10,7 @@
 
 #include "PolyEngine/ImGui/ImGuiLayer.h"
 
+int main(int argc, char** argv);
 
 namespace PolyEngine {
 
@@ -18,8 +19,6 @@ namespace PolyEngine {
 	public:
 		Application();
 		virtual ~Application();
-
-		void Run();
 
 		void OnEvent(Event& e);
 
@@ -30,6 +29,7 @@ namespace PolyEngine {
 		inline Window& GetWindow() { return *m_Window; }
 
 	private:
+		void Run();
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 
@@ -43,6 +43,7 @@ namespace PolyEngine {
 
 	private:
 		static Application* s_Instance;
+		friend int ::main(int argc, char** argv);
 	};
 
 	Application* CreateApplication();
