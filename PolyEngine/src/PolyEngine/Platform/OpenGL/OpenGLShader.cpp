@@ -121,7 +121,7 @@ namespace PolyEngine
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
 		GLint programm = glCreateProgram();
-		PE_CORE_ASSERT(shaderSources <= 2, "Only two shaders supported!");
+		PE_CORE_ASSERT(shaderSources.size() <= 2, "Only two shaders supported!");
 		std::array<GLenum, 2> glShaderIDs;
 		int glShaderIDIndex = 0;
 		for (auto& kv : shaderSources)
