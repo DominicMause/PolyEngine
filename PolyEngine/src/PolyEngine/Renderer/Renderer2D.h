@@ -4,6 +4,16 @@
 
 namespace PolyEngine
 {
+	struct RenderProps
+	{
+		glm::vec3 Position = {0,0,0};
+		glm::vec2 Size = { 1,1 };
+		float Rotation = 0;
+		float TilingFactor= 1.0f;
+		Ref<Texture> Texture;
+		glm::vec4 Color = { 1,1,1,1 };
+	};
+
 	class Renderer2D
 	{
 	public:
@@ -14,11 +24,9 @@ namespace PolyEngine
 		static void EndScene();
 
 		// Primitives
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const float rotation = 0);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const float rotation = 0);
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const float rotation = 0);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const float rotation = 0);
-		static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color, const float rotation = 0);
-		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color, const float rotation = 0);
+		static void DrawQuad(const RenderProps& renderProps);
+	private:
+		static void DrawRotatedQuad(const RenderProps& renderProps);
+		static void DrawNormalQuad(const RenderProps& renderProps);
 	};
 }

@@ -29,6 +29,17 @@ void Sandbox2D::OnAttach()
 			}
 		}
 	}
+
+	m_PropsBG.Position.z = -0.1f;
+	m_PropsBG.Size = { 19, 19 };
+	m_PropsBG.Texture = m_TextureBG;
+
+	m_PropsPlayer.Texture = m_TexturePlayer;
+
+	m_PropsBox.Texture = m_Texture;
+
+	m_PropsCoord.Size = { 0.1f,0.1f };
+	m_PropsCoord.Color = { 0.8f,0.3f,0.2f,0.5f };
 }
 
 void Sandbox2D::OnDetach()
@@ -53,21 +64,22 @@ void Sandbox2D::OnUpdate(Timestep ts)
 
 		Renderer2D::BeginScene(m_Player.GetCamera());
 
-		Renderer2D::DrawQuad({ 0.0f,0.0f,-0.1f }, { 19.0f,19.0f }, m_TextureBG);
+		Renderer2D::DrawQuad(m_PropsBG);
 
 		for (auto& e : m_Entities)
 		{
-			Renderer2D::DrawQuad(e.GetPosition(), e.GetSize(), e.GetTexture());
+			m_PropsBox.Position = glm::vec3(e.GetPosition(),0);
+			Renderer2D::DrawQuad(m_PropsBox);
 		}
 
 		for (auto& e : m_Player.GetCoords())
 		{
-			Renderer2D::DrawQuad(e, { 0.1f,0.1f }, { 0.8f,0.3f,0.2f,1.0f });
+			m_PropsCoord.Position = glm::vec3(e, 1);
+			Renderer2D::DrawQuad(m_PropsCoord);
 		}
 
-		Renderer2D::DrawQuad(glm::vec3(0), glm::vec2(1), { 0.8, 0.2, 0.2, 1.0 });
-		Renderer2D::DrawQuad(m_Player.GetPosition(), { m_Player.GetRadius() ,m_Player.GetRadius() }, { 0.3f,0.8f,0.2f,1.0f });
-		Renderer2D::DrawQuad(m_Player.GetPosition(), m_Player.GetSize(), m_Player.GetTexture());
+		m_PropsPlayer.Position = glm::vec3(m_Player.GetPosition(),1);
+		Renderer2D::DrawQuad(m_PropsPlayer);
 
 
 		Renderer2D::EndScene();

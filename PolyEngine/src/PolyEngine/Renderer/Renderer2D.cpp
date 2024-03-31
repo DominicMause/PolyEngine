@@ -72,43 +72,56 @@ namespace PolyEngine
 		PE_PROFILE_FUNCTION();
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const float rotation)
-	{
-		DrawQuad({ position.x, position.y, 0 }, size, s_Data->Texture, color, rotation);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color, const float rotation)
-	{
-		DrawQuad(position, size, s_Data->Texture, color, rotation);
-	}
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const float rotation)
-	{
-		DrawQuad({ position.x, position.y, 0 }, size, texture, { 1.0f, 1.0f, 1.0f, 1.0f }, rotation);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const float rotation)
-	{
-		DrawQuad(position, size, texture, { 1.0f, 1.0f, 1.0f, 1.0f }, rotation);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color, const float rotation)
-	{
-		DrawQuad({ position.x, position.y, 0 }, size, texture, color, rotation);
-	}
-
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const glm::vec4& color, const float rotation)
+	void Renderer2D::DrawQuad(const RenderProps& renderProps)
 	{
 		PE_PROFILE_FUNCTION();
-		texture->Bind();
+		if (!renderProps.Texture)
+		{
+			s_Data->Texture->Bind();
+		}
+		else
+		{
+			renderProps.Texture->Bind();
+		}
+
+		s_Data->TextureShader->SetFloat("u_TilingFactor", renderProps.TilingFactor);
+		s_Data->TextureShader->SetFloat4("u_Color", renderProps.Color);
+
+		if (renderProps.Rotation)
+		{
+			DrawRotatedQuad(renderProps);
+		}
+		else
+		{
+			DrawNormalQuad(renderProps);
+		}
+	}
+
+	void Renderer2D::DrawRotatedQuad(const RenderProps& renderProps)
+	{
+		PE_PROFILE_FUNCTION();
 		glm::mat4 transform;
 		{
-			PE_PROFILE_SCOPE("Calc transform matrix");
-			transform = glm::translate(glm::mat4(1.0f), position)
-				* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0, 0, 1))
-				* glm::scale(glm::mat4(1.0f), glm::vec3(size.x, size.y, 1));
+			PE_PROFILE_SCOPE("Calc transform rotated matrix");
+			transform = glm::translate(glm::mat4(1.0f), renderProps.Position)
+				* glm::rotate(glm::mat4(1.0f), glm::radians(renderProps.Rotation), glm::vec3(0, 0, 1))
+				* glm::scale(glm::mat4(1.0f), glm::vec3(renderProps.Size, 1));
 		}
 		s_Data->TextureShader->SetMat4("u_Transform", transform);
-		s_Data->TextureShader->SetFloat4("u_Color", color);
+		s_Data->QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+	}
+
+	void Renderer2D::DrawNormalQuad(const RenderProps & renderProps)
+	{
+		PE_PROFILE_FUNCTION();
+		glm::mat4 transform;
+		{
+			PE_PROFILE_SCOPE("Calc transform normal matrix");
+			transform = glm::translate(glm::mat4(1.0f), renderProps.Position)
+				* glm::scale(glm::mat4(1.0f), glm::vec3(renderProps.Size, 1));
+		}
+		s_Data->TextureShader->SetMat4("u_Transform", transform);
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
 	}

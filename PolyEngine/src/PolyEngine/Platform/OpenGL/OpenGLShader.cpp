@@ -211,23 +211,56 @@ namespace PolyEngine
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetInt(const std::string& name, const int value)
+	{
+		PE_PROFILE_FUNCTION();
+		UploadUniformInt(name, value);
+	}
+
+	void OpenGLShader::SetInt2(const std::string& name, const glm::ivec2& value)
+	{
+		PE_PROFILE_FUNCTION();
+		UploadUniformInt2(name, value);
+	}
+
+	void OpenGLShader::SetInt3(const std::string & name, const glm::ivec3 & value)
+	{
+		PE_PROFILE_FUNCTION();
+		UploadUniformInt3(name, value);
+	}
+
+	void OpenGLShader::SetInt4(const std::string & name, const glm::ivec4 & value)
+	{
+		PE_PROFILE_FUNCTION();
+		UploadUniformInt4(name, value);
+	}
+
+	void OpenGLShader::SetFloat(const std::string & name, const float value)
+	{
+		PE_PROFILE_FUNCTION();
+		UploadUniformFloat(name, value);
+	}
+
+	void OpenGLShader::SetFloat2(const std::string & name, const glm::vec2 & value)
+	{
+		PE_PROFILE_FUNCTION();
+		UploadUniformFloat2(name, value);
+	}
+
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
 	{
 		PE_PROFILE_FUNCTION();
 		UploadUniformFloat3(name, value);
 	}
 
-	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4 & value)
+	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
 	{
 		PE_PROFILE_FUNCTION();
 		UploadUniformFloat4(name, value);
 	}
 
-	void OpenGLShader::SetInt(const std::string& name, const int value)
-	{
-		PE_PROFILE_FUNCTION();
-		UploadUniformInt(name, value);
-	}
+	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& value)
+	{}
 
 	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4 & value)
 	{
@@ -239,6 +272,24 @@ namespace PolyEngine
 	{
 		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniform1i(position, value);
+	}
+
+	void OpenGLShader::UploadUniformInt2(const std::string& name, const glm::ivec2& value)
+	{
+		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
+		glUniform2i(position, value.x, value.y);
+	}
+
+	void OpenGLShader::UploadUniformInt3(const std::string & name, const glm::ivec3& value)
+	{
+		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
+		glUniform3i(position, value.x, value.y, value.z);
+	}
+
+	void OpenGLShader::UploadUniformInt4(const std::string & name, const glm::ivec4& value)
+	{
+		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
+		glUniform4i(position, value.x, value.y, value.z, value.w);
 	}
 
 	void OpenGLShader::UploadUniformFloat(const std::string& name, float value)
@@ -276,4 +327,5 @@ namespace PolyEngine
 		uint32_t position = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniformMatrix4fv(position, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
+
 }

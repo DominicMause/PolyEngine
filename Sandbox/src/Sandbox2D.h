@@ -28,6 +28,8 @@ private:
 	Ref<Texture2D> m_TextureBG;
 	Ref<Texture2D> m_TexturePlayer;
 
+	RenderProps m_PropsBG, m_PropsPlayer, m_PropsBox, m_PropsCoord;
+
 	std::vector<Entity> m_Entities;
 	Player m_Player;
 };
