@@ -25,8 +25,8 @@ namespace PolyEngine {
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 
-		inline static Application& Get() { return *s_Instance; }
-		inline Window& GetWindow() { return *m_Window; }
+		static Application& Get() { return *s_Instance; }
+		Window& GetWindow() { return *m_Window; }
 
 	private:
 		void Run();
