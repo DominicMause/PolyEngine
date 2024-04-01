@@ -43,7 +43,7 @@ namespace PolyEngine
 		{
 			PE_PROFILE_SCOPE("glfwInit");
 			int success = glfwInit();
-			PE_CORE_ASSERT(success, "Could not intialize GLFW!");
+			PE_CORE_ASSERT(success, "Could not initialize GLFW!");
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;

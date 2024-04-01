@@ -23,6 +23,8 @@ namespace PolyEngine
 		virtual void SetInt3(const std::string& name, const glm::ivec3& value) override;
 		virtual void SetInt4(const std::string& name, const glm::ivec4& value) override;
 
+		virtual void SetIntArray(const std::string& name, int* values, uint32_t count) override;
+
 		virtual void SetFloat(const std::string& name, const float value) override;
 		virtual void SetFloat2(const std::string& name, const glm::vec2& value) override;
 		virtual void SetFloat3(const std::string& name, const glm::vec3& value) override;
@@ -37,6 +39,8 @@ namespace PolyEngine
 		void UploadUniformInt2(const std::string& name, const glm::ivec2& value);
 		void UploadUniformInt3(const std::string& name, const glm::ivec3& value);
 		void UploadUniformInt4(const std::string& name, const glm::ivec4& value);
+
+		void UploadUniformIntArray(const std::string& name, int* values, uint32_t count);
 
 		void UploadUniformFloat(const std::string& name, float value);
 		void UploadUniformFloat2(const std::string& name, const glm::vec2& values);

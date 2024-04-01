@@ -29,12 +29,11 @@ void Sandbox2D::OnAttach()
 	m_PropsBG.Size = { 19, 19 };
 	m_PropsBG.Texture = m_TextureBG;
 
-	m_PropsPlayer.Texture = m_TexturePlayer;
 	m_PropsPlayer.Color = { 1.0f, 0.8f, 0.8f, 1.0f };
-
-	m_PropsBox.Texture = m_Texture;
+	m_PropsBG.Texture = m_TexturePlayer;
 
 	m_PropsCoord.Size = { 1.0f, 1.0f };
+	m_PropsCoord.Texture = m_Texture;
 
 	m_Entities.clear();
 

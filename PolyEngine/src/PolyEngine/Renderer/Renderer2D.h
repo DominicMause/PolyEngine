@@ -9,9 +9,9 @@ namespace PolyEngine
 		glm::vec3 Position = {0,0,0};
 		glm::vec2 Size = { 1,1 };
 		float Rotation = 0;
+		Ref<Texture2D> Texture;
 		float TilingFactor= 1.0f;
-		Ref<Texture> Texture;
-		glm::vec4 Color = { 1,1,1,1 };
+		glm::vec4 Color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	};
 
 	class Renderer2D

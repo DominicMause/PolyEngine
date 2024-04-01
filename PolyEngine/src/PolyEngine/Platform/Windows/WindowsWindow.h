@@ -15,17 +15,17 @@ namespace PolyEngine
 
 		void OnUpdate() override;
 
-		inline unsigned int GetWidth() const override
+		unsigned int GetWidth() const override
 		{
 			return m_Data.Width;
 		}
 
-		inline unsigned int GetHeight() const override
+		unsigned int GetHeight() const override
 		{
 			return m_Data.Height;
 		}
 		
-		inline void SetEventCallback(const EventCallbackFn& callback) override
+		void SetEventCallback(const EventCallbackFn& callback) override
 		{
 			m_Data.EventCallback = callback;
 		}
@@ -33,7 +33,7 @@ namespace PolyEngine
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
-		inline virtual void* GetNativeWindow() const { return m_Window; }
+		virtual void* GetNativeWindow() const { return m_Window; }
 	private:
 		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();

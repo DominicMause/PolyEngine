@@ -14,6 +14,8 @@ namespace PolyEngine
 		glm::vec3 Position;
 		glm::vec4 Color;
 		glm::vec2 TexCoord;
+		float TexIndex;
+		float TilingFactor;
 	};
 
 	struct Renderer2DData
@@ -21,6 +23,7 @@ namespace PolyEngine
 		const uint32_t MaxQuads = 10000;
 		const uint32_t MaxVertices = MaxQuads * 4;
 		const uint32_t MaxIndices = MaxQuads * 6;
+		static const uint32_t MaxTextureSlots = 32;
 
 		Ref<VertexArray> QuadVertexArray;
 		Ref<VertexBuffer> QuadVertexBuffer;
@@ -31,6 +34,9 @@ namespace PolyEngine
 
 		QuadVertex* QuadVertexBufferBase = nullptr;
 		QuadVertex* QuadVertexBufferPtr = nullptr;
+
+		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
+		uint32_t TextureSlotIndex = 1;
 	};
 
 	static Renderer2DData s_Data;
@@ -47,6 +53,8 @@ namespace PolyEngine
 			{ ShaderDataType::Float3, "a_Position" },
 			{ ShaderDataType::Float4, "a_Color" },
 			{ ShaderDataType::Float2, "a_TexCoord" },
+			{ ShaderDataType::Float,  "a_TextureID"},
+			{ ShaderDataType::Float,  "a_TilingFactor"}
 			});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
@@ -76,9 +84,15 @@ namespace PolyEngine
 		uint32_t textureData = 0xffffffff;
 		s_Data.Texture->SetData(&textureData, sizeof(textureData));
 
+		int32_t sampler[s_Data.MaxTextureSlots];
+		for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
+			sampler[i] = i;
+
 		s_Data.TextureShader = Shader::Create("assets/shaders/Texture.glsl");
 		s_Data.TextureShader->Bind();
-		s_Data.TextureShader->SetInt("u_Texture", 0);
+		s_Data.TextureShader->SetIntArray("u_Textures", sampler, s_Data.MaxTextureSlots);
+
+		s_Data.TextureSlots[0] = s_Data.Texture;
 	}
 
 	void Renderer2D::Shutdown()
@@ -94,6 +108,8 @@ namespace PolyEngine
 
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+		s_Data.TextureSlotIndex = 1;
 	}
 
 	void Renderer2D::EndScene()
@@ -108,39 +124,65 @@ namespace PolyEngine
 
 	void Renderer2D::Flush()
 	{
+		//Bind Textures
+		for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
+			s_Data.TextureSlots[i]->Bind(i);
+		
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
 	}
 
 	void Renderer2D::DrawQuad(const RenderProps& renderProps)
 	{
 		PE_PROFILE_FUNCTION();
-		/*if (!renderProps.Texture)
+
+		float textureIndex = 0.0f;
+
+		if (renderProps.Texture)
 		{
-			s_Data.Texture->Bind();
+			for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
+			{
+				//get() to get the pointer, & to deref
+				if (*s_Data.TextureSlots[i].get() == *renderProps.Texture.get())
+				{
+					textureIndex = (float)i;
+					break;
+				}
+			}
+
+			if (textureIndex == 0.0f)
+			{
+				textureIndex = (float)s_Data.TextureSlotIndex;
+				s_Data.TextureSlots[s_Data.TextureSlotIndex] = renderProps.Texture;
+				s_Data.TextureSlotIndex++;
+			}
 		}
-		else
-		{
-			renderProps.Texture->Bind();
-		}*/
 
 		s_Data.QuadVertexBufferPtr->Position = renderProps.Position;
 		s_Data.QuadVertexBufferPtr->Color = renderProps.Color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex; 
+		s_Data.QuadVertexBufferPtr->TilingFactor = renderProps.TilingFactor;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadVertexBufferPtr->Position = { renderProps.Position.x + renderProps.Size.x,renderProps.Position.y,renderProps.Position.z };
 		s_Data.QuadVertexBufferPtr->Color = renderProps.Color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 0.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = renderProps.TilingFactor;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadVertexBufferPtr->Position = { renderProps.Position.x + renderProps.Size.x,renderProps.Position.y + renderProps.Size.y,renderProps.Position.z };
 		s_Data.QuadVertexBufferPtr->Color = renderProps.Color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = renderProps.TilingFactor;
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadVertexBufferPtr->Position = { renderProps.Position.x,renderProps.Position.y + renderProps.Size.y,renderProps.Position.z };
 		s_Data.QuadVertexBufferPtr->Color = renderProps.Color;
 		s_Data.QuadVertexBufferPtr->TexCoord = { 0.0f, 1.0f };
+		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr->TilingFactor = renderProps.TilingFactor;
 		s_Data.QuadVertexBufferPtr++;
 
 		//s_Data.TextureShader->SetFloat("u_TilingFactor", renderProps.TilingFactor);
