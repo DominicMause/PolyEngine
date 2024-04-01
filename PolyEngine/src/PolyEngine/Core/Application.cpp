@@ -20,6 +20,8 @@ namespace PolyEngine {
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(PE_BIND_EVENT_FN(Application::OnEvent));
 
+		m_Window->SetVSync(0);
+
 		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();

@@ -11,6 +11,7 @@ namespace PolyEngine
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
+		OpenGLVertexBuffer(size_t size);
 		OpenGLVertexBuffer(float* vertices, size_t size);
 		virtual ~OpenGLVertexBuffer();
 
@@ -19,6 +20,8 @@ namespace PolyEngine
 
 		virtual void SetLayout(const BufferLayout& layout) override { m_BufferLayout = layout; }
 		virtual const BufferLayout& GetLayout() const override { return m_BufferLayout; }
+
+		virtual void SetData(const void* data, uint32_t size) override;
 	private:
 		uint32_t m_RendererID;
 		BufferLayout m_BufferLayout;

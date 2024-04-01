@@ -19,7 +19,7 @@ public:
 	void OnEvent(Event& event) override;
 
 private:
-	//OrthographicCameraController m_CameraController;
+	OrthographicCameraController m_CameraController;
 	//OrthographicCamera m_Camera;
 	Ref<VertexArray> m_VertexArray;
 	Ref<Shader> m_Shader;
@@ -28,8 +28,8 @@ private:
 	Ref<Texture2D> m_TextureBG;
 	Ref<Texture2D> m_TexturePlayer;
 
+	std::vector<RenderProps> m_Entities;
+
 	RenderProps m_PropsBG, m_PropsPlayer, m_PropsBox, m_PropsCoord;
 
-	std::vector<Entity> m_Entities;
-	Player m_Player;
 };
